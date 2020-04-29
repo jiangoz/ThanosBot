@@ -13,7 +13,7 @@ class MsgListener(commands.Cog):
         msgContent = msg.content.lower()
         trigger = msgContent.split()
 
-        #if not Heavenly Realm, then return
+        #if not Heavenly, then return
         if msg.guild.id != 256988924390408193:
             return
 
@@ -46,7 +46,7 @@ class MsgListener(commands.Cog):
             await msg.add_reaction(emote2)
             await msg.add_reaction(emote3)
 
-        #Auto moderate emote chat    #Only custom/global emotes
+        #Auto moderate emote chat  #Only custom/global emotes allowed
         if msg.channel.id == 459893562130300928:
             if msgContent.startswith('<:') and msgContent.endswith('>'):
                 pass
@@ -57,7 +57,7 @@ class MsgListener(commands.Cog):
                 channel = self.bot.get_channel(416385919919194113) #spam channel
                 await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> (it is only for ***CUSTOM EMOTES***)')
 
-        #Auto add memes vote arrows
+        #Auto add vote reactions in meme channel
         if msg.channel.id == 459767444437729280:
             up = self.bot.get_emoji(592355631667740683)
             down = self.bot.get_emoji(592355631877324820)
