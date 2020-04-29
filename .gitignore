@@ -1,0 +1,4 @@
+settings.txt
+# ignore compiled bytecode
+*.pyc
+
