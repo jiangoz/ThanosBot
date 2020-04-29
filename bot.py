@@ -19,6 +19,13 @@ async def on_connect():
     print('Successfully connected to Discord...')
 
 @bot.event
+async def on_disconnect():
+    cogStrList = bot.cogs.keys() 
+    #unload the cogs to prevent error
+    for cog in cogStrList:
+        bot.unload_extension(f'cogs.{cog}')
+
+@bot.event
 async def on_ready():
     membercount = 0
     for member in bot.get_all_members():
