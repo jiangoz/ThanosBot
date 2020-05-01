@@ -25,6 +25,19 @@ class Misc(commands.Cog):
                 await msg.add_reaction(down) 
                 downcount+=1
         await ctx.send(f'Added {upcount} upvote reacts and {downcount} downvote reacts')
+    
+    @commands.command()
+    @commands.is_owner()
+    async def cleanWeebGifs(self,ctx,limit:int):
+        """| go thru [limit] msgs in weeb channel & delete non-embedded gifs"""
+        weebChannel = self.bot.get_channel(332674779213463553)
+        messages = await weebChannel.history(limit=limit).flatten()
+        delCount = 0
+        for msg in messages:
+            if "//v.redd.it/" in msg.content.lower():
+                await msg.delete()
+                delCount+=1
+        await ctx.send(f'Deleted {delCount} non-embedded gif links')
 
     # @commands.command()
     # @commands.is_owner()

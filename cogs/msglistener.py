@@ -76,6 +76,10 @@ class MsgListener(commands.Cog):
             await msg.add_reaction(up)
             await msg.add_reaction(down)
         
+        #Auto delete non-embedded gifs in weeb channel
+        if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
+            await msg.delete()
+        
         # hide Nitro/gift links
         if msg.channel.id != 627651034445250560 and "discord.gift/" in msgContent:
             await msg.delete()
