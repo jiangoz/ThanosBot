@@ -31,12 +31,13 @@ async def on_connect():
     print(f'Bot Owner: {appInfo.owner.name}#{appInfo.owner.discriminator}')
     print('Successfully connected to Discord...')
 
-@bot.event
-async def on_disconnect():
-    cogStrList = bot.cogs.keys() 
-    #unload the cogs to prevent error
-    for cog in cogStrList:
-        bot.unload_extension(f'cogs.{cog}')
+# @bot.event
+# async def on_disconnect():
+#     cogStrList = bot.cogs.keys() 
+#     await bot.connect()
+#     #unload the cogs to prevent error
+#     for cog in cogStrList:
+#         bot.unload_extension(f'cogs.{cog}')
 
 @bot.event
 async def on_ready():
