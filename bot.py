@@ -34,7 +34,6 @@ async def on_connect():
 # @bot.event
 # async def on_disconnect():
 #     cogStrList = bot.cogs.keys() 
-#     await bot.connect()
 #     #unload the cogs to prevent error
 #     for cog in cogStrList:
 #         bot.unload_extension(f'cogs.{cog}')
