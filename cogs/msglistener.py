@@ -13,6 +13,10 @@ class MsgListener(commands.Cog):
         msgContent = msg.content.lower()
         trigger = msgContent.split()
 
+        #if msg from self(bot)
+        if msg.author.id == 436643551993004033:
+            return
+
         #if msg was sent in DM (not in a guild)
         if msg.guild == None:
             react = self.bot.get_emoji(579882318664302592) #thanos ugh emote
