@@ -13,6 +13,14 @@ class MsgListener(commands.Cog):
         msgContent = msg.content.lower()
         trigger = msgContent.split()
 
+        #if msg was sent in DM (not in a guild)
+        if msg.guild == None:
+            react = self.bot.get_emoji(579882318664302592) #thanos ugh emote
+            await msg.add_reaction(react)
+            channel = self.bot.get_channel(627651034445250560) #private channel
+            await channel.send(f'{msg.author.mention} said in DM: {msgContent}')
+            return
+
         #if not Heavenly, then return
         if msg.guild.id != 256988924390408193:
             return
