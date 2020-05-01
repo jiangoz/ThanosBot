@@ -21,7 +21,7 @@ class MsgListener(commands.Cog):
         if msg.guild == None:
             react = self.bot.get_emoji(579882318664302592) #thanos ugh emote
             await msg.add_reaction(react)
-            channel = self.bot.get_channel(627651034445250560) #private channel
+            channel = self.bot.get_channel(550456326053036034) #msg log channel
             await channel.send(f'{msg.author.mention} said in DM: {msgContent}')
             return
 
