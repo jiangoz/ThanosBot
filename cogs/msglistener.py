@@ -100,6 +100,10 @@ class MsgListener(commands.Cog):
             if demigod not in msg.author.roles and botrole not in msg.author.roles:
                 await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
                 await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
+        
+        #unflip the damn table!
+        if "(╯°□°）╯︵ ┻━┻" in msgContent:
+            await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
                 
         #removes jiango's apprentice nickname
         if msg.author.display_name == "jiango's apprentice":
