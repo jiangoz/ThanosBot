@@ -1,4 +1,4 @@
 settings.txt
-# ignore compiled bytecode
-*.pyc
-
+#ignore compiled bytecode
+*.pyc 
+.vscode
