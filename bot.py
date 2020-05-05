@@ -25,6 +25,7 @@ for filename in os.listdir('./cogs'):
         cogcount += 1
         coglist += filename+' | '
 
+
 @bot.event
 async def on_connect():
     appInfo = await bot.application_info()
@@ -37,6 +38,7 @@ async def on_connect():
 #     #unload the cogs to prevent error
 #     for cog in cogStrList:
 #         bot.unload_extension(f'cogs.{cog}')
+
 
 @bot.event
 async def on_ready():
