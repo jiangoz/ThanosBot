@@ -1,0 +1,20 @@
+import discord
+import asyncio
+from discord.ext import commands
+
+class Example(commands.Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_message(self, msg):
+        msgContent = msg.content.lower()
+        trigger = msgContent.split()
+    
+    @commands.command()
+    @commands.is_owner()
+    async def cmd(self,ctx):
+    
+def setup(bot):
+    bot.add_cog(Example(bot))
