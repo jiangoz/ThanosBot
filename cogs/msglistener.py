@@ -67,7 +67,32 @@ class MsgListener(commands.Cog):
             else:
                 await msg.delete()
                 channel = self.bot.get_channel(416385919919194113) #spam channel
-                await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> (it is only for ***CUSTOM EMOTES***)')
+                await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
+                                    +'(it is only for ***CUSTOM EMOTES***)')
+        
+        #Racial slur filter
+        if ("nigger" in msgContent or "chink" in msgContent or "kike" in trigger or "spic" in trigger 
+            or "gook" in trigger or "honkey" in trigger):
+
+            muted = msg.guild.get_role(316401466875314178)
+            botrole = msg.guild.get_role(272888325940051969)
+            modrole = msg.guild.get_role(388736972845482004)
+
+            if botrole in msg.author.roles:
+                pass
+            elif modrole in msg.author.roles:
+                await msg.delete()
+            else:
+                await msg.delete()
+                await msg.author.add_roles(muted,reason='racial slur')
+                await msg.channel.send(f'{msg.author.mention} has been {muted.mention} (for 69 mins) '
+                                        +'<a:aComicSans:528411471990751235>')
+                await msg.channel.send("**SO GUYS WE DID IT WE ENDED RACISM**")
+                modlog = self.bot.get_channel(316332561448042496) 
+                logmsg = await modlog.send(msg.author.mention + " was temporarily muted for racial slur")
+                await asyncio.sleep(4140)
+                await msg.author.remove_roles(muted,reason='timed mute is over')
+                await logmsg.edit(content=f'{msg.author.mention} was ~~temporarily muted for racial slur~~ unmuted')
 
         #Auto add vote reactions in meme channel
         if msg.channel.id == 459767444437729280:
@@ -85,27 +110,6 @@ class MsgListener(commands.Cog):
             await msg.delete()
             private = self.bot.get_channel(627651034445250560) #private channel
             await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
-
-        # #Racial slur filter
-        # if "nigger" in msgContent.lower() or "chink" in msgContent.lower():
-
-        #     muted = msg.guild.get_role(316401466875314178)
-        #     botrole = msg.guild.get_role(272888325940051969)
-        #     modrole = msg.guild.get_role(388736972845482004)
-
-        #     if botrole in msg.author.roles:
-        #         pass
-        #     elif modrole in msg.author.roles:
-        #         await msg.delete
-        #     else:
-        #         await msg.delete
-        #         await msg.author.add_role(muted,reason='racial slur')
-        #         await msg.send(msg.author.mention + " has been <@&316401466875314178> (for 69 mins) <a:aComicSans:528411471990751235>")
-        #         await msg.send("**SO GUYS WE DID IT WE ENDED RACISM**")
-        #         modlogChanel = self.bot.get_channel(316332561448042496)
-        #         await modlogChanel.send(msg.author.mention + " got temporary muted for racial slur")
-        #         await asyncio.sleep(4140)
-        #         await msg.author.remove_roles(muted,reason='timed mute is over')
 
         #howdy greeting - only for lurkers/newfags
         if (msgContent.startswith("hi") or msgContent.startswith("hey") or msgContent.startswith("hello") 
