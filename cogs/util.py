@@ -28,7 +28,7 @@ class Util(commands.Cog):
 
             # number of bad names found in total
             badnamecount = len(badnamelist)
-            await ctx.send(f'Attempting to change {usercount} names that start with `{symbol}` ...')
+            await ctx.send(f'Attempting to change {usercount} names that start with `{symbol}` to `{newNick}` ...')
 
             changecount = 0
             if badnamecount <= usercount:
