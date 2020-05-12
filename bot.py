@@ -14,7 +14,7 @@ for l in flines:
         prefixLine = l.split('{', 1)
         PREFIX = prefixLine[1][:-1]
 
-bot = commands.Bot(command_prefix=PREFIX)
+bot = commands.Bot(command_prefix=PREFIX,case_insensitive=True)
 
 @bot.event
 async def on_connect():

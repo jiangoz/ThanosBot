@@ -8,7 +8,7 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['addMemeVoteReact','addmemevotereacts','addmemevotereact'])
+    @commands.command(aliases=['addMemeVoteReact'])
     @commands.is_owner()
     async def addMemeVoteReacts(self, ctx, limit=30):
         """| add vote reactions to the last <num> msgs in meme channel"""
@@ -27,7 +27,7 @@ class Misc(commands.Cog):
                 downcount += 1
         await ctx.send(f'Added {upcount} upvote reacts and {downcount} downvote reacts')
 
-    @commands.command(aliases=['cleanWeebGif','cleanweebgifs','cleanweebgif'])
+    @commands.command(aliases=['cleanWeebGif'])
     @commands.is_owner()
     async def cleanWeebGifs(self, ctx, limit=20):
         """| go thru <num> msgs in weeb channel & delete non-embedded gifs"""
