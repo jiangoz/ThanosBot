@@ -79,9 +79,11 @@ class Misc(commands.Cog):
         """| set bot to stream something"""
         if "https://" in streamURL:
             await self.bot.change_presence(activity=discord.Streaming(name=streamName, url=streamURL))
+            await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
         else:
             await self.bot.change_presence(
                 activity=discord.Streaming(name=streamName, url=f"https://twitch.tv/{streamURL}"))
+            await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
 
     @set.command()
     async def listen(self, ctx, *, songName: str):
