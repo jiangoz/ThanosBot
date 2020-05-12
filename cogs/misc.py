@@ -8,10 +8,10 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases=['addMemeVoteReact','addmemevotereacts','addmemevotereact'])
     @commands.is_owner()
-    async def addMemeVoteReacts(self, ctx, limit: int):
-        """| add vote reactions to the last [specified num] msgs in meme channel"""
+    async def addMemeVoteReacts(self, ctx, limit=30):
+        """| add vote reactions to the last <num> msgs in meme channel"""
         memeChannel = self.bot.get_channel(459767444437729280)
         messages = await memeChannel.history(limit=limit).flatten()
         up = self.bot.get_emoji(592355631667740683)
@@ -27,10 +27,10 @@ class Misc(commands.Cog):
                 downcount += 1
         await ctx.send(f'Added {upcount} upvote reacts and {downcount} downvote reacts')
 
-    @commands.command()
+    @commands.command(aliases=['cleanWeebGif','cleanweebgifs','cleanweebgif'])
     @commands.is_owner()
-    async def cleanWeebGifs(self, ctx, limit: int):
-        """| go thru [limit] msgs in weeb channel & delete non-embedded gifs"""
+    async def cleanWeebGifs(self, ctx, limit=20):
+        """| go thru <num> msgs in weeb channel & delete non-embedded gifs"""
         weebChannel = self.bot.get_channel(332674779213463553)
         messages = await weebChannel.history(limit=limit).flatten()
         delCount = 0
@@ -70,47 +70,33 @@ class Misc(commands.Cog):
 
     @set.command()
     async def game(self, ctx, *, gameName: str):
-        """| set bot to playing a game"""
-        # Setting `Playing ` status
+        """| set bot to playing something"""
         await self.bot.change_presence(activity=discord.Game(name=gameName))
         await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
 
-    # @set.command()
-    # async def stream(self,ctx,*,gameName:str):
-    #     """"set bot to stream something on twitch"""
-    #     # Setting `Streaming ` status
-    #     await bot.change_presence(activity=discord.Streaming(name="My Stream", url=my_twitch_url))
+    @set.command()
+    async def stream(self,ctx, streamURL:str, *,streamName:str):
+        """| set bot to stream something"""
+        if "https://" in streamURL:
+            await self.bot.change_presence(activity=discord.Streaming(name=streamName, url=streamURL))
+        else:
+            await self.bot.change_presence(
+                activity=discord.Streaming(name=streamName, url=f"https://twitch.tv/{streamURL}"))
 
     @set.command()
     async def listen(self, ctx, *, songName: str):
         """| set bot to listen to something"""
-        # Setting `Listening ` status
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=songName))
         await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
 
     @set.command()
     async def watch(self, ctx, *, itemName: str):
         """| set bot to watch something"""
-        # Setting `Watching ` status
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=itemName))
         await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
 
-    # @set.command()
-    # async def customActivity(self,ctx,*,activityName:str):
-    #     """custom activity: add the emote reaction if you want it in the activity"""
-    #     thanosOK = self.bot.get_emoji(585580175031533597) # thanos OK hand emote
-
-    #     def check(reaction,user):
-    #         return user == ctx.author
-    #     try:
-    #         reaction,user = await self.bot.wait_for('reaction_add',timeout=10,check=check)
-    #     except asyncio.TimeoutError:
-    #         await self.bot.change_presence(activity=discord.CustomActivity(name=activityName))
-    #         await ctx.send(f'Did not detect emote reaction. My status is changed to `{activityName}`')
-    #     else:
-    #         await self.bot.change_presence(activity=discord.CustomActivity(name=activityName,emoji=reaction.emoji))
-    #         await ctx.message.add_reaction(thanosOK)
-
+    # @set.command() # SADLY bots can't use custom activity!!!
+    # async def customActivity(self,ctx,emoji=None,*,activityName:str):
 
 def setup(bot):
     bot.add_cog(Misc(bot))
