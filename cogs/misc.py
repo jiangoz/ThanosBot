@@ -44,7 +44,8 @@ class Misc(commands.Cog):
     @commands.is_owner()
     async def set(self, ctx):
         """| set the status and presence"""
-        await ctx.send_help("set")
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help("set")
 
     @set.command()
     async def status(self, ctx, status: str.lower):
