@@ -23,6 +23,8 @@ class Util(commands.Cog):
         else:
             badnamelist = []
             for member in ctx.guild.members:
+                if member.bot:
+                    continue
                 if member.display_name.startswith(symbol):
                     badnamelist.append(member)
 
