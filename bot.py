@@ -33,6 +33,8 @@ async def on_connect():
             cogcount += 1
             coglist += filename+' | '
 
+    bot.load_extension('jishaku')
+    print("Loaded jishaku: https://pypi.org/project/jishaku/")
     print(f'Loaded {cogcount} cogs: {coglist[:-3]}')
 
 @bot.event
