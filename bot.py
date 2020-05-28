@@ -31,7 +31,7 @@ async def on_connect():
         if filename.endswith('.py') and cogName not in cogStrList:
             bot.load_extension(f'cogs.{cogName}')
             cogcount += 1
-            coglist += filename+' | '
+            coglist += cogName + ' | '
 
     bot.load_extension('jishaku')
     print("Loaded jishaku: https://pypi.org/project/jishaku/")
