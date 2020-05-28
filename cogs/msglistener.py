@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import random
 
 # THERE ARE NO COMMANDS HERE, only 1 listener for on_message()
 class MsgListener(commands.Cog):
@@ -124,10 +125,19 @@ class MsgListener(commands.Cog):
         #unflip the damn table!
         if "(╯°□°）╯︵ ┻━┻" in msgContent:
             await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
+        
+        #show off global emotes
+        if ("global" in msgContent) and ("emote" in msgContent or "emoji" in msgContent):
+            await msg.channel.send("https://imgur.com/KzBbYJ0") #emotes screenshot
+            #list of emote IDs
+            gwemotes = [407619074466643978,389447036329656323,402867980356288515,402867987574685717,402867992930680833,
+                        408280788749254658,408280780951912451,402866531802939398,402866539491229696,389904150886088723,
+                        408280804675026965,398568908971573248]
+            random.shuffle(gwemotes)
+            for id in gwemotes:
+                emote = self.bot.get_emoji(id)
+                await msg.add_reaction(emote)
                 
-        #removes jiango's apprentice nickname
-        if msg.author.display_name == "jiango's apprentice":
-            await msg.author.edit(nick="LAME NAME")
 
 def setup(bot):
     bot.add_cog(MsgListener(bot))
