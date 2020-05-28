@@ -3,7 +3,8 @@ import asyncio
 from discord.ext import commands
 import random
 
-# THERE ARE NO COMMANDS HERE, only 1 listener for on_message()
+# NO COMMANDS HERE, only 1 listener for on_message()
+# Designed only for Heavenly Realm
 class MsgListener(commands.Cog):
 
     def __init__(self, bot):
