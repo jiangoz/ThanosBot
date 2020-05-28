@@ -39,18 +39,14 @@ async def on_connect():
 
 @bot.event
 async def on_ready():
-
-    membercount = 0
-    for member in bot.get_all_members():
-        membercount += 1
-
+    # load member count & server list
     serverlist = ''
     guilds = await bot.fetch_guilds().flatten()
     for guild in guilds:
         serverlist += guild.name+' | '
-
-    print(f'{membercount} members total')
+    print(f'{len(bot.users)} members total')
     print(f'In {len(guilds)} servers: {serverlist[:-3]}')
+    
     print('\nBOT IS READY!')
 
 bot.run(TOKEN)
