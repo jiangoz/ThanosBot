@@ -131,15 +131,21 @@ class MsgListener(commands.Cog):
         if ("emot" in msgContent or "emoj" in msgContent) and \
             ("how" in msgContent or "global" in msgContent or "?" in msgContent or "where" in msgContent or 
             "what" in msgContent or "why" in msgContent or "which" in msgContent):
-            await msg.channel.send("https://i.imgur.com/kxB6izB.png") #emotes screenshot
-            #list of emote IDs
-            gwemotes = [407619074466643978,389447036329656323,402867980356288515,402867987574685717,402867992930680833,
-                        408280788749254658,408280780951912451,402866531802939398,402866539491229696,389904150886088723,
-                        408280804675026965,398568908971573248]
-            random.shuffle(gwemotes)
-            for id in gwemotes:
-                emote = self.bot.get_emoji(id)
-                await msg.add_reaction(emote)
+
+            demigod = msg.guild.get_role(257006648583913472) #demigod i
+            role1 = msg.guild.get_role(398253816971264000) #emote role 1
+            role2 = msg.guild.get_role(400871836876931092) #emote role 2
+            if (role1 not in msg.author.roles or role2 not in msg.author.roles) and \
+                (demigod not in msg.author.roles):
+                await msg.channel.send("https://i.imgur.com/kxB6izB.png") #emotes screenshot
+                #list of emote IDs
+                gwemotes = [407619074466643978, 389447036329656323, 402867980356288515, 402867987574685717, 
+                            402867992930680833, 408280788749254658, 408280780951912451, 402866531802939398, 
+                            402866539491229696, 389904150886088723, 408280804675026965, 398568908971573248]
+                random.shuffle(gwemotes)
+                for id in gwemotes:
+                    emote = self.bot.get_emoji(id)
+                    await msg.add_reaction(emote)
                 
 
 def setup(bot):
