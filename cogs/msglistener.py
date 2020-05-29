@@ -128,8 +128,10 @@ class MsgListener(commands.Cog):
             await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
         
         #show off global emotes
-        if ("global" in msgContent) and ("emote" in msgContent or "emoji" in msgContent):
-            await msg.channel.send("https://imgur.com/KzBbYJ0") #emotes screenshot
+        if ("emot" in msgContent or "emoj" in msgContent) and \
+            ("how" in msgContent or "global" in msgContent or "?" in msgContent or "where" in msgContent or 
+            "what" in msgContent or "why" in msgContent or "which" in msgContent):
+            await msg.channel.send("https://i.imgur.com/kxB6izB.png") #emotes screenshot
             #list of emote IDs
             gwemotes = [407619074466643978,389447036329656323,402867980356288515,402867987574685717,402867992930680833,
                         408280788749254658,408280780951912451,402866531802939398,402866539491229696,389904150886088723,
