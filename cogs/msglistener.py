@@ -15,9 +15,10 @@ class MsgListener(commands.Cog):
     async def on_message(self,msg):
         msgContent = msg.content.lower()
         trigger = msgContent.split()
+        botrole = msg.guild.get_role(272888325940051969)
 
-        #if msg from self(bot)
-        if msg.author.id == 436643551993004033:
+        #if msg from self or other bots
+        if msg.author.id == 436643551993004033 or botrole in msg.author:
             return
 
         #if msg was sent in DM (not in a guild)
@@ -50,7 +51,7 @@ class MsgListener(commands.Cog):
             text:str = msg.content
             msglist = text.split()
             #Detect non-english
-            if len(msglist) >= 7 and detect(text) != "en":
+            if len(msglist) >= 8 and detect(text) != "en":
                 await msg.delete()
                 await msg.channel.send(f'{msg.author.mention} Please use English to chat here. '
                                 +'You may use other langs in <#309478950772670470>')
@@ -77,12 +78,9 @@ class MsgListener(commands.Cog):
             or "gook" in trigger or "honkey" in trigger):
 
             muted = msg.guild.get_role(316401466875314178)
-            botrole = msg.guild.get_role(272888325940051969)
             modrole = msg.guild.get_role(388736972845482004)
 
-            if botrole in msg.author.roles:
-                pass
-            elif modrole in msg.author.roles:
+            if modrole in msg.author.roles:
                 await msg.delete()
                 return
             else:
@@ -144,8 +142,7 @@ class MsgListener(commands.Cog):
         or msgContent.startswith("hai") or msgContent.startswith("howdy") or msgContent.startswith("sup")):
             
             demigod = msg.guild.get_role(257006648583913472) #demigod i
-            botrole = msg.guild.get_role(272888325940051969)
-            if demigod not in msg.author.roles and botrole not in msg.author.roles:
+            if demigod not in msg.author.roles:
                 await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
                 await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
         
