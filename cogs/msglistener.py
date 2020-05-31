@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import random
+from langdetect import detect
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
@@ -49,6 +50,11 @@ class MsgListener(commands.Cog):
         if "220997668355178496" in msgContent:   #ping jiango
             emote = self.bot.get_emoji(560468390154731530)
             await msg.add_reaction(emote)
+        if "436643551993004033" in msgContent or "thano" in msgContent:   #ping thanos 
+            t1 = self.bot.get_emoji(611039828003389440)
+            t2 = self.bot.get_emoji(585580175031533597)
+            await msg.add_reaction(t1)
+            await msg.add_reaction(t2)
         if "gay" in msgContent:
             emote = self.bot.get_emoji(480073530466107392)
             await msg.add_reaction(emote)
@@ -59,6 +65,20 @@ class MsgListener(commands.Cog):
             await msg.add_reaction(emote1)
             await msg.add_reaction(emote2)
             await msg.add_reaction(emote3)
+
+        #general chat auto mod
+        if msg.channel.id == 568437502680104960: #general chat
+            text:str = msg.content
+            msglist = text.split()
+            #Detect non-english
+            if len(msglist) >= 7 and detect(text) != "en":
+                await msg.delete()
+                await msg.channel.send(f'{msg.author.mention} Please use English to chat here. '
+                                +'You may use other langs in <#309478950772670470>')
+                return
+            #all cap detection
+            if len(text) >= 10 and text.isupper():
+                await msg.channel.send(f'{msg.author.mention} calm down lmao')
 
         #Auto moderate emote chat  #Only custom/global emotes allowed
         if msg.channel.id == 459893562130300928:
@@ -71,6 +91,7 @@ class MsgListener(commands.Cog):
                 channel = self.bot.get_channel(416385919919194113) #spam channel
                 await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
                                     +'(it is only for ***CUSTOM EMOTES***)')
+                return
         
         #Racial slur filter
         if ("nigger" in msgContent or "chink" in msgContent or "kike" in trigger or "spic" in trigger 
@@ -84,6 +105,7 @@ class MsgListener(commands.Cog):
                 pass
             elif modrole in msg.author.roles:
                 await msg.delete()
+                return
             else:
                 await msg.delete()
                 await msg.author.add_roles(muted,reason='racial slur')
@@ -95,6 +117,7 @@ class MsgListener(commands.Cog):
                 await asyncio.sleep(4140)
                 await msg.author.remove_roles(muted,reason='timed mute is over')
                 await logmsg.edit(content=f'{msg.author.mention} was ~~temporarily muted for racial slur~~ unmuted')
+                return
 
         #Auto add vote reactions in meme channel
         if msg.channel.id == 459767444437729280:
@@ -106,12 +129,14 @@ class MsgListener(commands.Cog):
         #Auto delete non-embedded gifs in weeb channel
         if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
             await msg.delete()
+            return
         
         # hide Nitro/gift links
         if msg.channel.id != 627651034445250560 and "discord.gift/" in msgContent:
             await msg.delete()
             private = self.bot.get_channel(627651034445250560) #private channel
             await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
+            return
 
         #howdy greeting - only for lurkers/newfags
         if (msgContent.startswith("hi") or msgContent.startswith("hey") or msgContent.startswith("hello") 
