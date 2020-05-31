@@ -31,40 +31,19 @@ class MsgListener(commands.Cog):
         #if not Heavenly, then return
         if msg.guild.id != 256988924390408193:
             return
-
-        # Emote reaction triggers
-        if "f" in trigger:
-            femote = self.bot.get_emoji(471008964021059586)
-            await msg.add_reaction(femote)
-        if msgContent == "no u":
-            await msg.channel.send("<:ThanosNOU:571052438619029524>")
-        if "owo" in trigger: #owo combo emotes!
-            o1 = self.bot.get_emoji(490916040964964354)
-            w2 = self.bot.get_emoji(490916041166159872)
-            o3 = self.bot.get_emoji(490921532734963722)
-            await msg.add_reaction(o1)
-            await asyncio.sleep(0.1)
-            await msg.add_reaction(w2)
-            await asyncio.sleep(0.1)
-            await msg.add_reaction(o3)
-        if "220997668355178496" in msgContent:   #ping jiango
-            emote = self.bot.get_emoji(560468390154731530)
-            await msg.add_reaction(emote)
-        if "436643551993004033" in msgContent or "thano" in msgContent:   #ping thanos 
-            t1 = self.bot.get_emoji(611039828003389440)
-            t2 = self.bot.get_emoji(585580175031533597)
-            await msg.add_reaction(t1)
-            await msg.add_reaction(t2)
-        if "gay" in msgContent:
-            emote = self.bot.get_emoji(480073530466107392)
-            await msg.add_reaction(emote)
-        if "jojo" in msgContent or "jjba" in trigger:
-            emote1 = self.bot.get_emoji(540669998725857290)
-            emote2 = self.bot.get_emoji(540669998834909194)
-            emote3 = self.bot.get_emoji(540669998809481276)
-            await msg.add_reaction(emote1)
-            await msg.add_reaction(emote2)
-            await msg.add_reaction(emote3)
+        
+        #Auto add vote reactions in meme channel
+        if msg.channel.id == 459767444437729280:
+            up = self.bot.get_emoji(592355631667740683)
+            down = self.bot.get_emoji(592355631877324820)
+            await msg.add_reaction(up)
+            await msg.add_reaction(down)
+            return
+        
+        #Auto delete non-embedded gifs in weeb channel
+        if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
+            await msg.delete()
+            return
 
         #general chat auto mod
         if msg.channel.id == 568437502680104960: #general chat
@@ -118,18 +97,6 @@ class MsgListener(commands.Cog):
                 await msg.author.remove_roles(muted,reason='timed mute is over')
                 await logmsg.edit(content=f'{msg.author.mention} was ~~temporarily muted for racial slur~~ unmuted')
                 return
-
-        #Auto add vote reactions in meme channel
-        if msg.channel.id == 459767444437729280:
-            up = self.bot.get_emoji(592355631667740683)
-            down = self.bot.get_emoji(592355631877324820)
-            await msg.add_reaction(up)
-            await msg.add_reaction(down)
-        
-        #Auto delete non-embedded gifs in weeb channel
-        if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
-            await msg.delete()
-            return
         
         # hide Nitro/gift links
         if msg.channel.id != 627651034445250560 and "discord.gift/" in msgContent:
@@ -137,6 +104,40 @@ class MsgListener(commands.Cog):
             private = self.bot.get_channel(627651034445250560) #private channel
             await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
             return
+
+        # Emote reaction triggers
+        if "f" in trigger:
+            femote = self.bot.get_emoji(471008964021059586)
+            await msg.add_reaction(femote)
+        if msgContent == "no u":
+            await msg.channel.send("<:ThanosNOU:571052438619029524>")
+        if "owo" in trigger: #owo combo emotes!
+            o1 = self.bot.get_emoji(490916040964964354)
+            w2 = self.bot.get_emoji(490916041166159872)
+            o3 = self.bot.get_emoji(490921532734963722)
+            await msg.add_reaction(o1)
+            await asyncio.sleep(0.1)
+            await msg.add_reaction(w2)
+            await asyncio.sleep(0.1)
+            await msg.add_reaction(o3)
+        if "220997668355178496" in msgContent:   #ping jiango
+            emote = self.bot.get_emoji(560468390154731530)
+            await msg.add_reaction(emote)
+        if "436643551993004033" in msgContent or "thano" in msgContent:   #ping thanos 
+            t1 = self.bot.get_emoji(611039828003389440)
+            t2 = self.bot.get_emoji(585580175031533597)
+            await msg.add_reaction(t1)
+            await msg.add_reaction(t2)
+        if "gay" in msgContent:
+            emote = self.bot.get_emoji(480073530466107392)
+            await msg.add_reaction(emote)
+        if "jojo" in msgContent or "jjba" in trigger:
+            emote1 = self.bot.get_emoji(540669998725857290)
+            emote2 = self.bot.get_emoji(540669998834909194)
+            emote3 = self.bot.get_emoji(540669998809481276)
+            await msg.add_reaction(emote1)
+            await msg.add_reaction(emote2)
+            await msg.add_reaction(emote3)
 
         #howdy greeting - only for lurkers/newfags
         if (msgContent.startswith("hi") or msgContent.startswith("hey") or msgContent.startswith("hello") 
