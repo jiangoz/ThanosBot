@@ -18,7 +18,7 @@ class MsgListener(commands.Cog):
         botrole = msg.guild.get_role(272888325940051969)
 
         #if msg from self or other bots
-        if msg.author.id == 436643551993004033 or botrole in msg.author:
+        if msg.author.id == 436643551993004033 or botrole in msg.author.roles:
             return
 
         #if msg was sent in DM (not in a guild)
