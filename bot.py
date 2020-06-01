@@ -23,19 +23,29 @@ async def on_connect():
     print('Successfully connected to Discord...')
 
     # load the cogs
-    cogStrList = bot.cogs.keys()
     cogcount = 0
     coglist = ''
     for filename in os.listdir('./cogs'):
         cogName = filename[:-3]  # without the '.py' part
-        if filename.endswith('.py') and cogName not in cogStrList:
-            bot.load_extension(f'cogs.{cogName}')
-            cogcount += 1
-            coglist += cogName + ' | '
-
-    bot.load_extension('jishaku')
-    print("Loaded jishaku: https://pypi.org/project/jishaku/")
+        if filename.endswith('.py'):
+            try:
+                bot.load_extension(f'cogs.{cogName}')
+                cogcount += 1
+                coglist += cogName + ' | '
+            except commands.ExtensionError:
+                pass
+            
     print(f'Loaded {cogcount} cogs: {coglist[:-3]}')
+
+    try:
+        bot.load_extension('jishaku')
+        print("Loaded jishaku: https://pypi.org/project/jishaku/")
+    except commands.ExtensionAlreadyLoaded:
+        pass
+    except commands.ExtensionNotFound:
+        print("jishaku was not found")
+    except commands.ExtensionFailed:
+        print("Failed to load jishaku")
 
 @bot.event
 async def on_ready():

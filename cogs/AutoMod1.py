@@ -41,11 +41,15 @@ class AutoMod1(commands.Cog):
             msglist = text.split()
             # Detect non-english
             if (len(msglist) >= 10 and detect(text) != "en") or \
-                (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI)): 
+                (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI) and
+                 "’" not in text and "‘" not in text):
                 # not ascii && no unicode emoji in text
                 await msg.delete()
-                await msg.channel.send(f'{msg.author.mention} Please use English to chat here. '
-                                       + 'You may use other langs in <#309478950772670470>')
+                emb = discord.Embed(title="Make sure your msg only contains ASCII codes",
+                                          url="https://en.wikipedia.org/wiki/ASCII")
+                outputMsg = (f'{msg.author.mention} Please use English to chat here. '
+                             + 'You may use other langs in <#309478950772670470>')
+                await msg.channel.send(outputMsg, embed=emb)
                 return
             # all cap detection, ignore custom emotes
             if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:

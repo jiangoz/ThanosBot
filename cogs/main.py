@@ -12,22 +12,40 @@ class Main(commands.Cog):
     @commands.is_owner()
     async def load(self, ctx, cog):
         """| load a cog from cogs folder"""
-        self.bot.load_extension(f'cogs.{cog}')
-        await ctx.send(f'{cog} was loaded')
-
+        try:
+            self.bot.load_extension(f'cogs.{cog}')
+            await ctx.send(f'{cog} was loaded successfully')
+        except commands.ExtensionAlreadyLoaded:
+            await ctx.send(f'{cog} is already loaded. Try using reload')
+        except commands.ExtensionFailed:
+            await ctx.send(f'setup function for {cog} had an execution error')
+        except commands.ExtensionNotFound:
+            await ctx.send(f'{cog} was not found in cogs directory')
+        
     @commands.command()
     @commands.is_owner()
     async def unload(self, ctx, cog):
         """| unload a cog from cogs folder"""
-        self.bot.unload_extension(f'cogs.{cog}')
-        await ctx.send(f'{cog} was un-loaded')
-
+        try:
+            self.bot.unload_extension(f'cogs.{cog}')
+            await ctx.send(f'{cog} was un-loaded successfully')
+        except commands.ExtensionNotLoaded:
+            await ctx.send(f'{cog} failed to unload. Try using reload')
+        
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, cog):
         """| reload cog - use it after u make changes"""
-        self.bot.reload_extension(f'cogs.{cog}')
-        await ctx.send(f'{cog} was re-loaded')
+        try:
+            self.bot.reload_extension(f'cogs.{cog}')
+            await ctx.send(f'{cog} was re-loaded successfully')
+        except commands.ExtensionNotLoaded:
+            await ctx.send(f'{cog} failed to load')
+        except commands.ExtensionNotFound:
+            await ctx.send(f'{cog} was not found in cogs directory')
+        except commands.ExtensionFailed:
+            await ctx.send(f'setup function for {cog} had an execution error')
+        
 
     @commands.command()
     @commands.is_owner()
