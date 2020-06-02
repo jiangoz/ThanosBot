@@ -7,6 +7,8 @@ import emoji
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
+
+
 class AutoMod1(commands.Cog):
 
     def __init__(self, bot):
@@ -26,7 +28,9 @@ class AutoMod1(commands.Cog):
             return
 
         try:
-            botrole = msg.guild.get_role(272888325940051969)  # get bot role
+            authorTopRole = msg.author.top_role  # member's highest role
+            viprole = msg.guild.get_role(388850225881546752)
+            botrole = msg.guild.get_role(272888325940051969)
             authorRoles = msg.author.roles
         except AttributeError:
             return
@@ -35,10 +39,11 @@ class AutoMod1(commands.Cog):
         if botrole in authorRoles:
             return
 
-        # general chat auto mod
-        if msg.channel.id == 568437502680104960:  # general chat
+        # general chat auto mod, VIP+ are immune
+        if msg.channel.id == 568437502680104960 and authorTopRole < viprole:
             text: str = msg.content
             msglist = text.split()
+
             # Detect non-english
             if (len(msglist) >= 10 and detect(text) != "en") or \
                 (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI) and
@@ -68,7 +73,7 @@ class AutoMod1(commands.Cog):
                 await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
                                    + '(it is only for ***CUSTOM EMOTES***)')
                 return
-        
+
         # hide Nitro/gift links
         if msg.channel.id != 627651034445250560 and "discord.gift/" in msg.content:
             await msg.delete()
@@ -79,15 +84,15 @@ class AutoMod1(commands.Cog):
 
         # show off global emotes
         if ("emot" in msgContentLower or "emoj" in msgContentLower) and \
-            ("how" in msgContentLower or "global" in msgContentLower or "?" in msgContentLower or 
-            "where" in msgContentLower or "what" in msgContentLower or "why" in msgContentLower or 
-            "which" in msgContentLower):
+            ("how" in msgContentLower or "global" in msgContentLower or "?" in msgContentLower or
+             "where" in msgContentLower or "what" in msgContentLower or "why" in msgContentLower or
+             "which" in msgContentLower):
 
-            demigod = msg.guild.get_role(257006648583913472)  # demigod i
+            demigodV = msg.guild.get_role(310541971179700224)  # demigod v
             role1 = msg.guild.get_role(398253816971264000)  # emote role 1
             role2 = msg.guild.get_role(400871836876931092)  # emote role 2
             if (role1 not in authorRoles or role2 not in authorRoles) and \
-                    (demigod not in authorRoles):
+                    (authorTopRole <= demigodV):
                 # emotes screenshot
                 await msg.channel.send("https://i.imgur.com/kxB6izB.png")
                 # list of emote IDs
