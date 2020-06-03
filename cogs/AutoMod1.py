@@ -51,7 +51,8 @@ class AutoMod1(commands.Cog):
                 # not ascii && no unicode emoji in text
                 await msg.delete()
                 emb = discord.Embed(title="Make sure your msg only contains ASCII codes",
-                                          url="https://en.wikipedia.org/wiki/ASCII")
+                                          url="https://en.wikipedia.org/wiki/ASCII",
+                                          description="(VIP+ are immune to this auto-mod)")
                 outputMsg = (f'{msg.author.mention} Please use English to chat here. '
                              + 'You may use other langs in <#309478950772670470>')
                 await msg.channel.send(outputMsg, embed=emb)
