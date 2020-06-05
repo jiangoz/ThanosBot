@@ -65,6 +65,12 @@ class MsgTrigger(commands.Cog):
             await msg.add_reaction(emote1)
             await msg.add_reaction(emote2)
             await msg.add_reaction(emote3)
+        if "deus" in msgContentLower or "vult" in msgContentLower:
+            emote = self.bot.get_emoji(416072792560238592)
+            await msg.add_reaction(emote)
+        if "crusade" in msgContentLower or "templar" in msgContentLower:
+            emote = self.bot.get_emoji(480073411532554242)
+            await msg.add_reaction(emote)
 
         # unflip the damn table!
         if "(╯°□°）╯︵ ┻━┻" in msg.content:
