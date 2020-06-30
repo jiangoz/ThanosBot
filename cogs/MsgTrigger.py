@@ -25,6 +25,7 @@ class MsgTrigger(commands.Cog):
         try:
             botrole = msg.guild.get_role(272888325940051969)  # get bot role
             authorRoles = msg.author.roles
+            authorTopRole = msg.author.top_role  # member's highest role
         except AttributeError:
             return
 
@@ -80,9 +81,8 @@ class MsgTrigger(commands.Cog):
         if (msgContentLower.startswith("hi") or msgContentLower.startswith("hey") or 
             msgContentLower.startswith("hello") or msgContentLower.startswith("hai") or 
             msgContentLower.startswith("howdy") or msgContentLower.startswith("sup")):
-
             demigod1 = msg.guild.get_role(257006648583913472)  # demigod I
-            if demigod1 not in authorRoles:
+            if authorTopRole <= demigod1:
                 await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
                 await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
 
