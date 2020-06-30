@@ -59,7 +59,7 @@ class AutoMod1(commands.Cog):
                 return
             # all cap detection, ignore custom emotes
             if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:
-                await msg.channel.send(f'{msg.author.mention} ||calm down lmao||', 
+                await msg.channel.send(f'{msg.author.mention} ||calm down|| lmao', 
                 embed = discord.Embed().set_image(url="https://i.imgur.com/LoK9MJD.png"))
 
         # Auto moderate emote chat  #Only custom/global emotes allowed
