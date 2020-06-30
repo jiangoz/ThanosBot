@@ -59,7 +59,8 @@ class AutoMod1(commands.Cog):
                 return
             # all cap detection, ignore custom emotes
             if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:
-                await msg.channel.send(f'{msg.author.mention} calm down lmao')
+                await msg.channel.send(f'{msg.author.mention} ||calm down lmao||', 
+                embed = discord.Embed().set_image(url="https://i.imgur.com/LoK9MJD.png"))
 
         # Auto moderate emote chat  #Only custom/global emotes allowed
         if msg.channel.id == 459893562130300928:
@@ -92,10 +93,9 @@ class AutoMod1(commands.Cog):
             demigodV = msg.guild.get_role(310541971179700224)  # demigod v
             role1 = msg.guild.get_role(398253816971264000)  # emote role 1
             role2 = msg.guild.get_role(400871836876931092)  # emote role 2
-            if (role1 not in authorRoles or role2 not in authorRoles) and \
-                    (authorTopRole <= demigodV):
-                # emotes screenshot
-                await msg.channel.send("https://i.imgur.com/kxB6izB.png")
+            if role1 not in authorRoles or role2 not in authorRoles or authorTopRole <= demigodV:
+                # meme no
+                await msg.channel.send(embed = discord.Embed().set_image(url="https://i.imgur.com/kxB6izB.png"))
                 # list of emote IDs
                 gwemotes = [407619074466643978, 389447036329656323, 402867980356288515, 402867987574685717,
                             402867992930680833, 408280788749254658, 408280780951912451, 402866531802939398,
@@ -104,7 +104,9 @@ class AutoMod1(commands.Cog):
                 for id in gwemotes:
                     emote = self.bot.get_emoji(id)
                     await msg.add_reaction(emote)
-
+                # meme howto
+                await msg.channel.send(msg.author.mention, embed = discord.Embed().set_image(
+                    url="https://i.imgur.com/rRoClpC.png"))
 
 def setup(bot):
     bot.add_cog(AutoMod1(bot))
