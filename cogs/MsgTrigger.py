@@ -1,6 +1,8 @@
 import discord
 import asyncio
 from discord.ext import commands
+from pathlib import Path
+import random
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
@@ -59,6 +61,11 @@ class MsgTrigger(commands.Cog):
             t2 = self.bot.get_emoji(585580175031533597)
             await msg.add_reaction(t1)
             await msg.add_reaction(t2)
+            # pull a random quote from file
+            relpath = Path(__file__).parents[1].joinpath("data","thanosquotes.txt")
+            with open(relpath,"r") as f:
+                quote_list = f.readlines()
+            await msg.channel.send(random.choice(quote_list))
         if "gay" in msgContentLower:
             emote = self.bot.get_emoji(480073530466107392)
             await msg.add_reaction(emote)

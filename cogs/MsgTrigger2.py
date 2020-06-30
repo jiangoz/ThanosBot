@@ -4,7 +4,7 @@ from discord.ext import commands
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
-class WebhookTrigger(commands.Cog):
+class MsgTrigger2(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -39,4 +39,4 @@ class WebhookTrigger(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(WebhookTrigger(bot))
+    bot.add_cog(MsgTrigger2(bot))

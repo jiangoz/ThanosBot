@@ -3,4 +3,4 @@ settings.txt
 *.pyc 
 .vscode
 TODO
-data
+rolelist.json
