@@ -4,6 +4,8 @@ from discord.ext import commands
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
+
+
 class MsgTrigger(commands.Cog):
 
     def __init__(self, bot):
@@ -24,6 +26,7 @@ class MsgTrigger(commands.Cog):
 
         try:
             botrole = msg.guild.get_role(272888325940051969)  # get bot role
+            demigod1 = msg.guild.get_role(257006648583913472)  # demigod I
             authorRoles = msg.author.roles
             authorTopRole = msg.author.top_role  # member's highest role
         except AttributeError:
@@ -78,13 +81,24 @@ class MsgTrigger(commands.Cog):
             await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
 
         # howdy greeting - only for lurkers/newfags
-        if (msgContentLower.startswith("hi") or msgContentLower.startswith("hey") or 
-            msgContentLower.startswith("hello") or msgContentLower.startswith("hai") or 
-            msgContentLower.startswith("howdy") or msgContentLower.startswith("sup")):
-            demigod1 = msg.guild.get_role(257006648583913472)  # demigod I
-            if authorTopRole <= demigod1:
-                await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
-                await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
+        if authorTopRole <= demigod1 and (msgContentLower.startswith("hi") or msgContentLower.startswith("hey") or
+                                          msgContentLower.startswith("hello") or msgContentLower.startswith("hai") or
+                                          msgContentLower.startswith("howdy") or msgContentLower.startswith("sup")):
+
+            await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
+            await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
+
+        # send invite link (rick roll)
+        link = "https://discordapp.com/channels/256988924390408193/256994533299060746/521483972241391616"
+        if authorTopRole <= demigod1 and "inv" in msgContentLower and ("?" in msgContentLower or
+                                                                       "what" in msgContentLower or 
+                                                                       "where" in msgContentLower or 
+                                                                       "how" in msgContentLower or
+                                                                       "link" in msgContentLower or 
+                                                                       "why" in msgContentLower):
+            await msg.channel.send(f"{msg.author.mention} {link}",
+                                   embed=discord.Embed(title="Click Here for Invite Link", 
+                                   url="https://youtu.be/dQw4w9WgXcQ"))
 
 
 def setup(bot):
