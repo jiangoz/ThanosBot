@@ -68,6 +68,8 @@ class AutoMod1(commands.Cog):
                 pass
             elif msgContentLower.startswith('<a:') and msgContentLower.endswith('>'):
                 pass
+            elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
+                pass
             else:
                 await msg.delete()
                 channel = self.bot.get_channel(

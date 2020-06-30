@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import emoji
 
 #Designed only for Heavenly Realm
 class Heavenly(commands.Cog):
@@ -12,7 +13,7 @@ class Heavenly(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == 256988924390408193:
-            await asyncio.sleep(300)
+            await asyncio.sleep(310)
             role1 = member.guild.get_role(398253816971264000)  # emote role 1
             role2 = member.guild.get_role(400871836876931092)  # emote role 2
             if role1 not in member.roles:
@@ -51,6 +52,25 @@ class Heavenly(commands.Cog):
                 await msg.delete()
                 delCount += 1
         await ctx.send(f'Deleted {delCount} non-embedded gif links')
+    
+    @commands.command(aliases=['cleanemote','cleanemotes'])
+    @commands.is_owner()
+    async def cleanEmoteChat(self, ctx, limit=100):
+        """| go thru <num> msgs in emote channel & delete non-emotes"""
+        emoteChannel = self.bot.get_channel(459893562130300928)
+        messages = await emoteChannel.history(limit=limit).flatten()
+        delCount = 0
+        for msg in messages:
+            if msg.content.startswith('<:') and msg.content.endswith('>'):
+                pass
+            elif msg.content.startswith('<a:') and msg.content.endswith('>'):
+                pass
+            elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
+                pass
+            else:
+                await msg.delete()
+                delCount += 1
+        await ctx.send(f'Deleted {delCount} non-emote messages')
     
 def setup(bot):
     bot.add_cog(Heavenly(bot))
