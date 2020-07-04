@@ -31,6 +31,8 @@ class AutoMod1(commands.Cog):
             authorTopRole = msg.author.top_role  # member's highest role
             viprole = msg.guild.get_role(388850225881546752)
             botrole = msg.guild.get_role(272888325940051969)
+            demigodV = msg.guild.get_role(310541971179700224)  # demigod v
+            demigod1 = msg.guild.get_role(257006648583913472) # demigod 1
             authorRoles = msg.author.roles
         except AttributeError:
             return
@@ -92,10 +94,11 @@ class AutoMod1(commands.Cog):
              "where" in msgContentLower or "what" in msgContentLower or "why" in msgContentLower or
              "which" in msgContentLower):
 
-            demigodV = msg.guild.get_role(310541971179700224)  # demigod v
+            
             role1 = msg.guild.get_role(398253816971264000)  # emote role 1
             role2 = msg.guild.get_role(400871836876931092)  # emote role 2
-            if role1 not in authorRoles or role2 not in authorRoles or authorTopRole <= demigodV:
+            if (role1 not in authorRoles or role2 not in authorRoles or authorTopRole <= demigod1 or 
+            demigodV not in authorRoles):
                 # meme no
                 await msg.channel.send(embed = discord.Embed().set_image(url="https://i.imgur.com/kxB6izB.png"))
                 # list of emote IDs
