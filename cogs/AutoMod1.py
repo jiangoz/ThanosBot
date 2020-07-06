@@ -51,14 +51,17 @@ class AutoMod1(commands.Cog):
                 (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI) and
                  "’" not in text and "‘" not in text):
                 # not ascii && no unicode emoji in text
-                await msg.delete()
-                emb = discord.Embed(title="Make sure your msg only contains ASCII codes",
-                                          url="https://en.wikipedia.org/wiki/ASCII",
-                                          description="(VIP+ are immune to this auto-mod)")
-                outputMsg = (f'{msg.author.mention} Please use English to chat here. '
-                             + 'You may use other langs in <#309478950772670470>')
-                await msg.channel.send(outputMsg, embed=emb)
-                return
+                try:
+                    await msg.delete()
+                    emb = discord.Embed(title="Make sure your msg only contains ASCII codes",
+                                            url="https://en.wikipedia.org/wiki/ASCII",
+                                            description="(VIP+ are immune to this auto-mod)")
+                    outputMsg = (f'{msg.author.mention} Please use English to chat here. '
+                                + 'You may use other langs in <#309478950772670470>')
+                    await msg.channel.send(outputMsg, embed=emb)
+                    return
+                except discord.HTTPException:
+                    pass
             # all cap detection, ignore custom emotes
             if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:
                 await msg.channel.send(f'{msg.author.mention} ||calm down|| lmao', 
@@ -73,20 +76,26 @@ class AutoMod1(commands.Cog):
             elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
                 pass
             else:
-                await msg.delete()
-                channel = self.bot.get_channel(
-                    416385919919194113)  # spam channel
-                await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
-                                   + '(it is only for ***CUSTOM EMOTES***)')
-                return
+                try:
+                    await msg.delete()
+                    channel = self.bot.get_channel(
+                        416385919919194113)  # spam channel
+                    await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
+                                    + '(it is only for ***CUSTOM EMOTES***)')
+                    return
+                except discord.HTTPException:
+                    pass
 
         # hide Nitro/gift links
         if msg.channel.id != 627651034445250560 and "discord.gift/" in msg.content:
-            await msg.delete()
-            private = self.bot.get_channel(
-                627651034445250560)  # private channel
-            await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
-            return
+            try:
+                await msg.delete()
+                private = self.bot.get_channel(
+                    627651034445250560)  # private channel
+                await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
+                return
+            except discord.HTTPException:
+                pass
 
         # show off global emotes
         if ("emot" in msgContentLower or "emoj" in msgContentLower) and \

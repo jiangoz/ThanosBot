@@ -51,9 +51,12 @@ class Heavenly(commands.Cog):
         messages = await weebChannel.history(limit=limit).flatten()
         delCount = 0
         for msg in messages:
-            if "//v.redd.it/" in msg.content.lower():
-                await msg.delete()
-                delCount += 1
+            if "v.redd.it" in msg.content.lower():
+                try:
+                    await msg.delete()
+                    delCount += 1
+                except discord.HTTPException:
+                    pass
         await ctx.send(f'Deleted {delCount} non-embedded gif links')
     
     @commands.command(aliases=['cleanemote','cleanemotes'])
@@ -71,8 +74,11 @@ class Heavenly(commands.Cog):
             elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
                 pass
             else:
-                await msg.delete()
-                delCount += 1
+                try:
+                    await msg.delete()
+                    delCount += 1
+                except discord.HTTPException:
+                    pass
         await ctx.send(f'Deleted {delCount} non-emote messages')
     
 def setup(bot):

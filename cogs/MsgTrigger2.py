@@ -35,7 +35,10 @@ class MsgTrigger2(commands.Cog):
 
         # Auto delete non-embedded gifs in weeb channel
         if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
-            await msg.delete()
+            try:
+                await msg.delete()
+            except discord.HTTPException:
+                pass
 
 
 def setup(bot):

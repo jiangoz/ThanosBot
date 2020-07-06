@@ -39,21 +39,24 @@ class AntiSlur(commands.Cog):
             muted = msg.guild.get_role(316401466875314178)
             modrole = msg.guild.get_role(388736972845482004)
 
-            if modrole in authorRoles:
-                await msg.delete()
-                return
-            else:
-                await msg.delete()
-                await msg.author.add_roles(muted, reason='racial slur')
-                await msg.channel.send(f'{msg.author.mention} has been {muted.mention} (for 69 mins) '
-                                       + '<a:aComicSans:528411471990751235>')
-                await msg.channel.send("**SO GUYS WE DID IT WE ENDED RACISM**")
-                modlog = self.bot.get_channel(316332561448042496)
-                logmsg = await modlog.send(msg.author.mention + " was temporarily muted for racial slur")
-                await asyncio.sleep(4140)
-                await msg.author.remove_roles(muted, reason='timed mute is over')
-                await logmsg.edit(content=f'{msg.author.mention} was ~~temporarily muted for racial slur~~ unmuted')
-                return
+            try:
+                if modrole in authorRoles:
+                    await msg.delete()
+                    return
+                else:
+                    await msg.delete()
+                    await msg.author.add_roles(muted, reason='racial slur')
+                    await msg.channel.send(f'{msg.author.mention} has been {muted.mention} (for 69 mins) '
+                                        + '<a:aComicSans:528411471990751235>')
+                    await msg.channel.send("**SO GUYS WE DID IT WE ENDED RACISM**")
+                    modlog = self.bot.get_channel(316332561448042496)
+                    logmsg = await modlog.send(msg.author.mention + " was temporarily muted for racial slur")
+                    await asyncio.sleep(4140)
+                    await msg.author.remove_roles(muted, reason='timed mute is over')
+                    await logmsg.edit(content=f'{msg.author.mention} was ~~temporarily muted for racial slur~~ unmuted')
+                    return
+            except discord.HTTPException:
+                pass
 
 
 def setup(bot):
