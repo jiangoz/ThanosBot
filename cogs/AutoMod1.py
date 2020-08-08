@@ -86,13 +86,13 @@ class AutoMod1(commands.Cog):
                 except discord.HTTPException:
                     pass
 
-        # hide Nitro/gift links
-        if msg.channel.id != 627651034445250560 and "discord.gift/" in msg.content:
+        # hide/delete Nitro or gift links
+        if msg.channel.id != 627651034445250560 and "discord.gift/" in msgContentLower:
             try:
                 await msg.delete()
                 private = self.bot.get_channel(
                     627651034445250560)  # private channel
-                await private.send("<@220997668355178496> NITRO LINK: " + msg.content)
+                await private.send("<@220997668355178496> GIFT LINK: " + msg.content)
                 return
             except discord.HTTPException:
                 pass
