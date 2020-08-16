@@ -106,8 +106,7 @@ class AutoMod1(commands.Cog):
             
             role1 = msg.guild.get_role(398253816971264000)  # emote role 1
             role2 = msg.guild.get_role(400871836876931092)  # emote role 2
-            if (role1 not in authorRoles or role2 not in authorRoles or authorTopRole <= demigod1 or 
-            demigodV not in authorRoles):
+            if (role1 not in authorRoles or role2 not in authorRoles) and (demigodV not in authorRoles):
                 # meme no
                 await msg.channel.send(embed = discord.Embed().set_image(url="https://i.imgur.com/kxB6izB.png"))
                 # list of emote IDs
