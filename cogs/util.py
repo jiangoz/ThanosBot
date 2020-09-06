@@ -9,13 +9,27 @@ class Util(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.is_owner()
     async def ping(self, ctx):
         """| pong! returns latency"""
         await ctx.send(f'Pong! {round(self.bot.latency*1000)}ms')
+    
+    @commands.command()
+    async def info(self, ctx):
+        """| see information about the bot"""
+        infoembed = discord.Embed(color=discord.Color.purple()).set_author(name="Thanos", 
+        icon_url="https://i.imgur.com/LPX0BfY.png")
+        infoembed = infoembed.add_field(name="API", value="d.py").add_field(name="Language", value="Python3"
+        ).add_field(name="Creator", value="jiango#0215").add_field(name="Version", value="420.69").add_field(
+            name="GitHub", value="[ThanosBot](https://github.com/jiangoz/ThanosBot)").add_field(name="Users", 
+            value=str(len(self.bot.users)))
+
+        infoembed = infoembed.add_field(name="Heavenly", value="[discord.gg/LMAO](https://discord.gg/XdBgdZt)"
+        ).add_field(name="Hellish", value="[discord.gg/MbnDzAR](https://discord.gg/MbnDzAR)")
+
+        await ctx.send(embed=infoembed)
 
     @commands.command(aliases=['noAttention', 'removeNicks'])
-    @commands.is_owner()
+    @commands.has_guild_permissions(manage_guild=True)
     async def removeNick(self, ctx, usercount:int=10, symbol:str='!', *, newNick:str=None):
         """| remove/change nicknames that start with \"symbol\""""
         if ctx.guild == None:
