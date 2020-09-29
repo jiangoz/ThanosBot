@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import os
+intents = discord.Intents.default()
+intents.members = True
 
 # read from settings file
 f = open("settings.txt", "r")
@@ -14,7 +16,7 @@ for l in flines:
         prefixLine = l.split('{', 1)
         PREFIX = prefixLine[1][:-1]
 
-bot = commands.Bot(command_prefix=PREFIX,case_insensitive=True)
+bot = commands.Bot(command_prefix=PREFIX, case_insensitive=True, intents=intents)
 
 @bot.event
 async def on_connect():
