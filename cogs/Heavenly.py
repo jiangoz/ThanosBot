@@ -24,7 +24,7 @@ class Heavenly(commands.Cog):
             except discord.HTTPException:
                 pass
     
-    @commands.command(aliases=['addMemeVoteReact'])
+    @commands.command(aliases=['addMemeVoteReact', 'addMemeVotes', 'addMemeVote'])
     @commands.is_owner()
     async def addMemeVoteReacts(self, ctx, limit=30):
         """| add vote reactions to the last <num> msgs in meme channel"""
@@ -59,7 +59,7 @@ class Heavenly(commands.Cog):
                     pass
         await ctx.send(f'Deleted {delCount} non-embedded gif links')
     
-    @commands.command(aliases=['cleanemote','cleanemotes'])
+    @commands.command(aliases=['cleanEmote','cleanEmotes'])
     @commands.is_owner()
     async def cleanEmoteChat(self, ctx, limit=100):
         """| go thru <num> msgs in emote channel & delete non-emotes"""
