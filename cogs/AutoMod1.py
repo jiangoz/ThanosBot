@@ -104,11 +104,11 @@ class AutoMod1(commands.Cog):
             if (demigodX not in authorRoles or demigodV >= authorTopRole):
                 # buy nitro meme
                 meme = discord.Embed().set_image(url="https://i.imgur.com/0HOJ9YY.png")
-                msg = f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
+                notice = (f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
                 + 'so more users buy Nitro <:CrazyChamp:702640155432976475>\n'
-                + 'Welcome to the era of corporations fucking everyone for profit <:Merchant2:561548871457832970>'
+                + 'Welcome to the era of corporations fucking everyone for profit <:Merchant2:561548871457832970>')
                 
-                await msg.channel.send(msg, embed=meme)
+                await msg.channel.send(notice, embed=meme)
 
 def setup(bot):
     bot.add_cog(AutoMod1(bot))
