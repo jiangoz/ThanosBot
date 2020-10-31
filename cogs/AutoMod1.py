@@ -31,6 +31,7 @@ class AutoMod1(commands.Cog):
             authorTopRole = msg.author.top_role  # member's highest role
             viprole = msg.guild.get_role(388850225881546752)
             botrole = msg.guild.get_role(272888325940051969)
+            demigodX = msg.guild.get_role(340275236865966090) # demigod X
             demigodV = msg.guild.get_role(310541971179700224)  # demigod v
             demigod1 = msg.guild.get_role(257006648583913472) # demigod 1
             authorRoles = msg.author.roles
@@ -86,40 +87,28 @@ class AutoMod1(commands.Cog):
                 except discord.HTTPException:
                     pass
 
-        # hide/delete Nitro or gift links
-        if msg.channel.id != 627651034445250560 and "discord.gift/" in msgContentLower:
+        # delete Nitro or gift links
+        if "discord.gift/" in msgContentLower:
             try:
                 await msg.delete()
-                private = self.bot.get_channel(
-                    627651034445250560)  # private channel
-                await private.send("<@220997668355178496> GIFT LINK: " + msg.content)
                 return
             except discord.HTTPException:
                 pass
 
-        # show off global emotes
+        # NOTICE: no more global emotes
         if ("emot" in msgContentLower or "emoj" in msgContentLower) and \
             ("how" in msgContentLower or "global" in msgContentLower or "?" in msgContentLower or
              "where" in msgContentLower or "what" in msgContentLower or "why" in msgContentLower or
              "which" in msgContentLower):
 
-            
-            role1 = msg.guild.get_role(398253816971264000)  # emote role 1
-            role2 = msg.guild.get_role(400871836876931092)  # emote role 2
-            if (role1 not in authorRoles or role2 not in authorRoles) and (demigodV not in authorRoles):
-                # meme no
-                await msg.channel.send(embed = discord.Embed().set_image(url="https://i.imgur.com/kxB6izB.png"))
-                # list of emote IDs
-                gwemotes = [407619074466643978, 389447036329656323, 402867980356288515, 402867987574685717,
-                            402867992930680833, 408280788749254658, 408280780951912451, 402866531802939398,
-                            402866539491229696, 389904150886088723, 408280804675026965, 398568908971573248]
-                random.shuffle(gwemotes)
-                for id in gwemotes:
-                    emote = self.bot.get_emoji(id)
-                    await msg.add_reaction(emote)
-                # meme howto
-                await msg.channel.send(msg.author.mention, embed = discord.Embed().set_image(
-                    url="https://i.imgur.com/rRoClpC.png"))
+            if (demigodX not in authorRoles or demigodV >= authorTopRole):
+                # buy nitro meme
+                meme = discord.Embed().set_image(url="https://i.imgur.com/0HOJ9YY.png")
+                msg = f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
+                + 'so more users buy Nitro <:CrazyChamp:702640155432976475>\n'
+                + 'Welcome to the era of corporations fucking everyone for profit <:Merchant2:561548871457832970>'
+                
+                await msg.channel.send(msg, embed=meme)
 
 def setup(bot):
     bot.add_cog(AutoMod1(bot))
