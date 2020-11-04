@@ -3,6 +3,7 @@ import asyncio
 from discord.ext import commands
 import random
 from langdetect import detect
+from langdetect import lang_detect_exception
 import emoji
 
 # NO COMMANDS HERE, only 1 listener for on_message()
@@ -48,7 +49,12 @@ class AutoMod1(commands.Cog):
             msglist = text.split()
 
             # Detect non-english
-            if (len(msglist) >= 10 and detect(text) != "en") or \
+            try:
+                detected = detect(text)
+            except lang_detect_exception.LangDetectException:
+                detected = ''
+            
+            if (len(msglist) >= 10 and detected != "en") or \
                 (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI) and
                  "’" not in text and "‘" not in text):
                 # not ascii && no unicode emoji in text
@@ -106,7 +112,7 @@ class AutoMod1(commands.Cog):
                 meme = discord.Embed().set_image(url="https://i.imgur.com/0HOJ9YY.png")
                 notice = (f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
                 + 'so more users buy Nitro <:CrazyChamp:702640155432976475>\n'
-                + 'Welcome to the era of corporations fucking everyone for profit <:Merchant2:561548871457832970>')
+                + 'Welcome to the era of corporations fucking everyone for more profit <:Merchant2:561548871457832970>')
                 
                 await msg.channel.send(notice, embed=meme)
 
