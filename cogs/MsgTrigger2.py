@@ -15,11 +15,14 @@ class MsgTrigger2(commands.Cog):
 
         # if msg was sent in DM (not in a guild)
         if msg.guild == None:
-            react = self.bot.get_emoji(579882318664302592)  # thanos ugh emote
-            await msg.add_reaction(react)
-            channel = self.bot.get_channel(
+            try:
+                react = self.bot.get_emoji(579882318664302592)  # thanos ugh emote
+                await msg.add_reaction(react)
+                channel = self.bot.get_channel(
                 550456326053036034)  # msg log channel
-            await channel.send(f'{msg.author.mention} said in DM: {msg.content}')
+                await channel.send(f'{msg.author.mention} said in DM: {msg.content}')
+            except discord.HTTPException:
+                pass
             return
 
         # if not Heavenly, then return
