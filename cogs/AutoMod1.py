@@ -43,8 +43,10 @@ class AutoMod1(commands.Cog):
         if botrole in authorRoles:
             return
 
-        # general chat auto mod, VIP+ are immune
-        if msg.channel.id == 568437502680104960 and authorTopRole < viprole:
+        # general/media/game chat auto mod, VIP+ are immune
+        if (msg.channel.id == 568437502680104960
+            or msg.channel.id == 289170611849396225
+                or msg.channel.id == 256993917461987328) and authorTopRole < viprole:
             text: str = msg.content
             msglist = text.split()
 
@@ -71,7 +73,7 @@ class AutoMod1(commands.Cog):
                     pass
             # all cap detection, ignore custom emotes
             if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:
-                await msg.channel.send(f'{msg.author.mention} ||calm down|| lmao', 
+                await msg.channel.send(f'{msg.author.mention} ||shut yo bitchass up|| lmao', 
                 embed = discord.Embed().set_image(url="https://i.imgur.com/LoK9MJD.png"))
 
         # Auto moderate emote chat  #Only custom/global emotes allowed
