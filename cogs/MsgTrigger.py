@@ -58,6 +58,9 @@ class MsgTrigger(commands.Cog):
             if "220997668355178496" in msg.content:  # ping jiango
                 emote = self.bot.get_emoji(560468390154731530)
                 await msg.add_reaction(emote)
+            if "jiango" in msgContentLower:
+                emote = self.bot.get_emoji(784468115298975805)
+                await msg.add_reaction(emote)
             if "436643551993004033" in msg.content or "thano" in msgContentLower:  # ping thanos
                 t1 = self.bot.get_emoji(611039828003389440)
                 t2 = self.bot.get_emoji(585580175031533597)
@@ -71,6 +74,9 @@ class MsgTrigger(commands.Cog):
                 await msg.channel.send(random.choice(quote_list))
             if "gay" in msgContentLower:
                 emote = self.bot.get_emoji(480073530466107392)
+                await msg.add_reaction(emote)
+            if "cring" in msgContentLower:
+                emote = self.bot.get_emoji(441709985026539520)
                 await msg.add_reaction(emote)
             if "jojo" in msgContentLower or "jjba" in trigger:
                 emote1 = self.bot.get_emoji(540669998725857290)
