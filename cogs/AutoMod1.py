@@ -116,7 +116,11 @@ class AutoMod1(commands.Cog):
                 + 'so more users buy Nitro <:CrazyChamp:702640155432976475>\n'
                 + 'Welcome to the era of corporations fucking everyone for more profit <:Merchant2:561548871457832970>')
                 
-                await msg.channel.send(notice, embed=meme)
+                try:
+                    await msg.channel.send(notice, embed=meme)
+                except discord.HTTPException:
+                    pass
+                
 
 def setup(bot):
     bot.add_cog(AutoMod1(bot))

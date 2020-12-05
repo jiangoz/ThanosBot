@@ -59,8 +59,10 @@ class MsgTrigger(commands.Cog):
                 emote = self.bot.get_emoji(560468390154731530)
                 await msg.add_reaction(emote)
             if ("jiango" in msgContentLower) and (":" not in msgContentLower):
-                emote = self.bot.get_emoji(784468115298975805)
+                emote = self.bot.get_emoji(784468115298975805) #me
+                emote2 = self.bot.get_emoji(398568908971573248) #pepe
                 await msg.add_reaction(emote)
+                await msg.add_reaction(emote2)
             if "436643551993004033" in msg.content or "thano" in msgContentLower:  # ping thanos
                 t1 = self.bot.get_emoji(611039828003389440)
                 t2 = self.bot.get_emoji(585580175031533597)
