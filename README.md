@@ -1,5 +1,7 @@
 # ThanosBot
-Discord bot built specifically for my large Discord servers, written in Python.
+![](https://i.imgur.com/HmZ1tqB.png)
+
+Discord bot built specifically for my large Discord server, written in Python.
 
 ### Useful References/Links:
 **discord.py Documentation:** https://discordpy.readthedocs.io/en/latest/index.html  \
