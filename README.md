@@ -2,7 +2,7 @@
 ![](https://i.imgur.com/HmZ1tqB.png)
 
 ### Discord bot built specifically for my large Discord servers (100k+ members).
-WIP, always adding new features to aid me in server moderation & management. 
+WIP, always adding new features to assist me in server moderation & management. 
 
 ### Python Packages Used:
 - **jishaku:** https://github.com/Gorialis/jishaku 
