@@ -1,3 +1,3 @@
 @echo off
 type ThanosBotAscii.txt
-py bot.py
+.\bot-env\Scripts\python.exe bot.py
