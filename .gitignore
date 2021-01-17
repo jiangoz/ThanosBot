@@ -4,3 +4,4 @@ settings.txt
 .vscode
 TODO
 rolelist.json
+*.db
