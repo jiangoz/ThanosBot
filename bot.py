@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import os
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
 intents = discord.Intents.default()
 intents.members = True
 
@@ -61,4 +63,5 @@ async def on_ready():
     
     print('\nBOT IS READY!')
 
+# Run the bot
 bot.run(TOKEN)
