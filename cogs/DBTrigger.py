@@ -12,6 +12,11 @@ class DBTrigger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, msg):
+
+        # if msg was sent in DM (not in a guild)
+        if msg.guild == None:
+            return
+
         # Heavenly
         if msg.guild.id == 256988924390408193:
             conn = sqlite3.connect("data/heavenlyDB.db")
@@ -23,7 +28,7 @@ class DBTrigger(commands.Cog):
             conn.close()
         
         # Hellish
-        if msg.guild.id == 436263090472878081:
+        elif msg.guild.id == 436263090472878081:
             conn = sqlite3.connect("data/hellishDB.db")
             c = conn.cursor()
             c.execute("INSERT INTO messages VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -45,7 +50,7 @@ class DBTrigger(commands.Cog):
             conn.close()
 
         # Hellish
-        if member.guild.id == 436263090472878081:
+        elif member.guild.id == 436263090472878081:
             conn = sqlite3.connect("data/hellishDB.db")
             c = conn.cursor()
             c.execute("INSERT INTO members VALUES (?, ?, ?)",
