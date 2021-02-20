@@ -1,4 +1,6 @@
 settings.txt
+slursFilter.txt
+wildcardFilter.txt
 #ignore compiled bytecode
 *.pyc 
 .vscode
