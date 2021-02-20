@@ -62,7 +62,7 @@ class AutoMod1(commands.Cog):
                 # not ascii && no unicode emoji in text
                 try:
                     await msg.delete()
-                    emb = discord.Embed(title="Make sure your msg only contains ASCII codes",
+                    emb = discord.Embed(title="Make sure your msg only contains ASCII",
                                             url="https://en.wikipedia.org/wiki/ASCII",
                                             description="(VIP+ are immune to this auto-mod)")
                     outputMsg = (f'{msg.author.mention} Please use English to chat here. '
@@ -71,10 +71,6 @@ class AutoMod1(commands.Cog):
                     return
                 except discord.HTTPException:
                     pass
-            # all cap detection, ignore custom emotes
-            if len(text) >= 10 and text.isupper() and "<" not in text and ">" not in text:
-                await msg.channel.send(f'{msg.author.mention} ||shut yo bitchass up|| lmao', 
-                embed = discord.Embed().set_image(url="https://i.imgur.com/LoK9MJD.png"))
 
         # Auto moderate emote chat  #Only custom/global emotes allowed
         if msg.channel.id == 459893562130300928:
@@ -113,8 +109,7 @@ class AutoMod1(commands.Cog):
                 # buy nitro meme
                 meme = discord.Embed().set_image(url="https://i.imgur.com/0HOJ9YY.png")
                 notice = (f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
-                + 'so more users buy Nitro <:CrazyChamp:702640155432976475>\n'
-                + 'Welcome to the era of corporations fucking everyone for more profit <:Merchant2:561548871457832970>')
+                + 'so more users buy Nitro <:Merchant2:561548871457832970> <:CrazyChamp:702640155432976475>')
                 
                 try:
                     await msg.channel.send(notice, embed=meme)

@@ -98,7 +98,7 @@ class MsgTrigger(commands.Cog):
             if "(╯°□°）╯︵ ┻━┻" in msg.content:
                 await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
 
-            # howdy greeting - only for lurkers/newfags
+            # howdy greeting - only for new folks
             if (authorTopRole <= demigod1 or demigodv not in authorRoles) and (msgContentLower.startswith("hi") or
                                                                                msgContentLower.startswith("hey") or
                                                                                msgContentLower.startswith("hello") or 
