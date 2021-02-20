@@ -3,6 +3,7 @@ import asyncio
 from discord.ext import commands
 from pathlib import Path
 import random
+import json
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
@@ -12,6 +13,20 @@ class MsgTrigger(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+        # fetch reaction data paths
+        triggerPath = Path(__file__).parents[1].joinpath(
+            "data", "reactionTrigger.json")
+        msgPath = Path(__file__).parents[1].joinpath(
+            "data", "reactionMsg.json")
+
+        # for specific trigger standalone words
+        with open(triggerPath) as t:
+            self.triggerReacts: dict = json.load(t)
+
+        # for any wildcards match in msg/sentence
+        with open(msgPath) as m:
+            self.msgReacts: dict = json.load(m)
 
     @commands.Cog.listener()
     async def on_message(self, msg):
@@ -41,9 +56,17 @@ class MsgTrigger(commands.Cog):
 
         try:
             # Emote reaction triggers
-            if "f" in trigger:
-                femote = self.bot.get_emoji(471008964021059586)
-                await msg.add_reaction(femote)
+
+            for t in self.triggerReacts.keys():
+                if t in trigger:
+                    react = self.bot.get_emoji(self.triggerReacts.get(t))
+                    await msg.add_reaction(react)
+
+            for m in self.msgReacts.keys():
+                if m in msgContentLower:
+                    react = self.bot.get_emoji(self.msgReacts.get(m))
+                    await msg.add_reaction(react)
+
             if msgContentLower == "no u":
                 await msg.channel.send("<:ThanosNOU:571052438619029524>")
             if "owo" in trigger:  # owo combo emotes!
@@ -59,8 +82,8 @@ class MsgTrigger(commands.Cog):
                 emote = self.bot.get_emoji(560468390154731530)
                 await msg.add_reaction(emote)
             if ("jiango" in msgContentLower) and (":" not in msgContentLower):
-                emote = self.bot.get_emoji(784468115298975805) #me
-                emote2 = self.bot.get_emoji(398568908971573248) #pepe
+                emote = self.bot.get_emoji(784468115298975805)  # me
+                emote2 = self.bot.get_emoji(398568908971573248)  # pepe
                 await msg.add_reaction(emote)
                 await msg.add_reaction(emote2)
             if "436643551993004033" in msg.content or "thano" in msgContentLower:  # ping thanos
@@ -74,12 +97,6 @@ class MsgTrigger(commands.Cog):
                 with open(relpath, "r") as f:
                     quote_list = f.readlines()
                 await msg.channel.send(random.choice(quote_list))
-            if "gay" in msgContentLower:
-                emote = self.bot.get_emoji(480073530466107392)
-                await msg.add_reaction(emote)
-            if "cring" in msgContentLower:
-                emote = self.bot.get_emoji(441709985026539520)
-                await msg.add_reaction(emote)
             if "jojo" in msgContentLower or "jjba" in trigger:
                 emote1 = self.bot.get_emoji(540669998725857290)
                 emote2 = self.bot.get_emoji(540669998834909194)
@@ -87,12 +104,6 @@ class MsgTrigger(commands.Cog):
                 await msg.add_reaction(emote1)
                 await msg.add_reaction(emote2)
                 await msg.add_reaction(emote3)
-            if "deus" in msgContentLower or "vult" in msgContentLower:
-                emote = self.bot.get_emoji(416072792560238592)
-                await msg.add_reaction(emote)
-            if "crusade" in msgContentLower or "templar" in msgContentLower:
-                emote = self.bot.get_emoji(480073411532554242)
-                await msg.add_reaction(emote)
 
             # unflip the damn table!
             if "(╯°□°）╯︵ ┻━┻" in msg.content:
@@ -101,7 +112,7 @@ class MsgTrigger(commands.Cog):
             # howdy greeting - only for new folks
             if (authorTopRole <= demigod1 or demigodv not in authorRoles) and (msgContentLower.startswith("hi") or
                                                                                msgContentLower.startswith("hey") or
-                                                                               msgContentLower.startswith("hello") or 
+                                                                               msgContentLower.startswith("hello") or
                                                                                msgContentLower.startswith("hai") or
                                                                                msgContentLower.startswith("howdy") or
                                                                                msgContentLower.startswith("sup")):
@@ -112,12 +123,12 @@ class MsgTrigger(commands.Cog):
             # send invite link (rick roll)
             link = "https://discordapp.com/channels/256988924390408193/256994533299060746/521483972241391616"
             if (authorTopRole <= demigod1 or demigodv not in authorRoles) and "inv" in msgContentLower and \
-                                                                            ("?" in msgContentLower or
-                                                                           "what" in msgContentLower or
-                                                                           "where" in msgContentLower or
-                                                                           "how" in msgContentLower or
-                                                                           "link" in msgContentLower or
-                                                                           "why" in msgContentLower):
+                ("?" in msgContentLower or
+                 "what" in msgContentLower or
+                 "where" in msgContentLower or
+                 "how" in msgContentLower or
+                 "link" in msgContentLower or
+                 "why" in msgContentLower):
                 await msg.channel.send(f"{msg.author.mention} {link}",
                                        embed=discord.Embed(title="Click Here for Invite Link",
                                                            url="https://youtu.be/dQw4w9WgXcQ"))
