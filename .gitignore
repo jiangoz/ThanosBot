@@ -1,11 +1,12 @@
-settings.txt
-slursFilter.txt
-wildcardFilter.txt
-#ignore compiled bytecode
 *.pyc 
-.vscode
+.vscode/
+bot-env/
+
 TODO
 rolelist.json
 *.db
-#ignore virtual env
-bot-env
+
+settings.txt
+slursFilter.txt
+wildcardFilter.txt
+
