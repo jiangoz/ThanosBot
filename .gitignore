@@ -7,3 +7,5 @@ wildcardFilter.txt
 TODO
 rolelist.json
 *.db
+#ignore virtual env
+bot-env
