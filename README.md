@@ -4,8 +4,10 @@
 ### Discord bot built specifically for my large Discord servers (100k+ members).
 WIP, always adding new features to assist me in server moderation & management. 
 
-- Activate virtual environment on Windows: `bot-env\Scripts\activate`
 - Activate virtual environment on Linux: `source bot-env/bin/activate`
+- Activate virtual environment on Windows: `bot-env\Scripts\activate`
+- Change Execution Policy for PowerShell (if running above script is disabled): `Set-ExecutionPolicy -Scope "CurrentUser" -ExecutionPolicy "RemoteSigned"`
+- Install requirements/dependencies: `python -m pip install -r requirements.txt`
 
 ### Python Packages Used:
 - **jishaku:** https://github.com/Gorialis/jishaku 
