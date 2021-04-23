@@ -57,7 +57,7 @@ class AutoMod1(commands.Cog):
                 detected = ''
             
             if (len(msglist) >= 10 and detected != "en") or \
-                (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI) and
+                (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI_ENGLISH) and
                  "’" not in text and "‘" not in text):
                 # not ascii && no unicode emoji in text
                 try:
@@ -78,7 +78,7 @@ class AutoMod1(commands.Cog):
                 pass
             elif msgContentLower.startswith('<a:') and msgContentLower.endswith('>'):
                 pass
-            elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
+            elif all(em in emoji.UNICODE_EMOJI_ENGLISH for em in msg.content):
                 pass
             else:
                 try:

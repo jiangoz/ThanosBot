@@ -71,7 +71,7 @@ class Heavenly(commands.Cog):
                 pass
             elif msg.content.startswith('<a:') and msg.content.endswith('>'):
                 pass
-            elif all(em in emoji.UNICODE_EMOJI for em in msg.content):
+            elif all(em in emoji.UNICODE_EMOJI_ENGLISH for em in msg.content):
                 pass
             else:
                 try:
