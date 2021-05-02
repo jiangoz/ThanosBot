@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import random
 
 # NO COMMANDS HERE, only 1 listener for on_message()
 # Designed only for Heavenly Realm
@@ -42,7 +43,15 @@ class MsgTrigger2(commands.Cog):
                 await msg.delete()
             except discord.HTTPException:
                 pass
+        
+        # Auto add random reaction in epic_boosters channel
+        if msg.channel.id == 838530366997266432:
+            react_list = [590614599515111440,601185935714943005,597917965178109952,594177649266524160,
+            645117585918132224, 594175419801141273, 645117585704091681, 645117585767006219,
+            588780698693795840, 590614599590739968, 645117584743858196, 642785362124472363]
 
+            rand_react = self.bot.get_emoji(random.choice(react_list))
+            await msg.add_reaction(rand_react)
 
 def setup(bot):
     bot.add_cog(MsgTrigger2(bot))
