@@ -110,7 +110,7 @@ class MsgTrigger(commands.Cog):
                 await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
 
             # howdy greeting - only for new folks
-            if (authorTopRole <= demigod1 or demigodv not in authorRoles) and (msgContentLower.startswith("hi") or
+            if (authorTopRole <= demigod1) and (msgContentLower.startswith("hi") or
                                                                                msgContentLower.startswith("hey") or
                                                                                msgContentLower.startswith("hello") or
                                                                                msgContentLower.startswith("hai") or
