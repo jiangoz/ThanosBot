@@ -30,8 +30,8 @@ class MsgTrigger2(commands.Cog):
         if msg.guild.id != 256988924390408193:
             return
 
-        # Auto add vote reactions in meme channel
-        if msg.channel.id == 459767444437729280:
+        # Auto add vote reactions in meme channel or suggestions channel
+        if msg.channel.id == 459767444437729280 or msg.channel.id == 838570502091833345:
             up = self.bot.get_emoji(592355631667740683)
             down = self.bot.get_emoji(592355631877324820)
             await msg.add_reaction(up)
@@ -52,6 +52,7 @@ class MsgTrigger2(commands.Cog):
 
             rand_react = self.bot.get_emoji(random.choice(react_list))
             await msg.add_reaction(rand_react)
+
 
 def setup(bot):
     bot.add_cog(MsgTrigger2(bot))
