@@ -24,12 +24,31 @@ class Heavenly(commands.Cog):
             except discord.HTTPException:
                 pass
     
-    @commands.command(aliases=['addMemeVoteReact', 'addMemeVotes', 'addMemeVote'])
+    @commands.command(aliases=['addMemeVote'])
     @commands.is_owner()
-    async def addMemeVoteReacts(self, ctx, limit=30):
-        """| add vote reactions to the last <num> msgs in meme channel"""
+    async def addMemeVotes(self, ctx, limit=30):
+        """| add vote reactions to the last <num> msgs in memes channel"""
         memeChannel = self.bot.get_channel(459767444437729280)
         messages = await memeChannel.history(limit=limit).flatten()
+        up = self.bot.get_emoji(592355631667740683)
+        down = self.bot.get_emoji(592355631877324820)
+        upcount = 0
+        downcount = 0
+        for msg in messages:
+            if up not in (react.emoji for react in msg.reactions):
+                await msg.add_reaction(up)
+                upcount += 1
+            if down not in (react.emoji for react in msg.reactions):
+                await msg.add_reaction(down)
+                downcount += 1
+        await ctx.send(f'Added {upcount} upvote reacts and {downcount} downvote reacts')
+    
+    @commands.command(aliases=['addSuggestVote','addSuggestionVote','addSuggestionVotes'])
+    @commands.is_owner()
+    async def addSuggestVotes(self, ctx, limit=10):
+        """| add vote reactions to the last <num> msgs in suggestions channel"""
+        suggestChannel = self.bot.get_channel(838570502091833345) 
+        messages = await suggestChannel.history(limit=limit).flatten()
         up = self.bot.get_emoji(592355631667740683)
         down = self.bot.get_emoji(592355631877324820)
         upcount = 0
