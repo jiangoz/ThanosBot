@@ -83,7 +83,7 @@ class MsgTrigger(commands.Cog):
                 await msg.add_reaction(emote)
             if ("jiango" in msgContentLower) and (":" not in msgContentLower):
                 emote = self.bot.get_emoji(784468115298975805)  # me
-                emote2 = self.bot.get_emoji(398568908971573248)  # pepe
+                emote2 = self.bot.get_emoji(839690866289016852)  # pepe
                 await msg.add_reaction(emote)
                 await msg.add_reaction(emote2)
             if "436643551993004033" in msg.content or "thano" in msgContentLower:  # ping thanos
@@ -108,17 +108,6 @@ class MsgTrigger(commands.Cog):
             # unflip the damn table!
             if "(╯°□°）╯︵ ┻━┻" in msg.content:
                 await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
-
-            # howdy greeting - only for new folks
-            if (authorTopRole <= demigod1) and (msgContentLower.startswith("hi") or
-                                                                               msgContentLower.startswith("hey") or
-                                                                               msgContentLower.startswith("hello") or
-                                                                               msgContentLower.startswith("hai") or
-                                                                               msgContentLower.startswith("howdy") or
-                                                                               msgContentLower.startswith("sup")):
-
-                await msg.channel.send(f'{msg.author.mention} Howdy! <:TipHat:585587679798886411>')
-                await msg.channel.send("<:GWjiangoPepeFedora:389447036329656323> <a:0PepeHowdy:594175419801141273>")
 
             # send invite link (rick roll)
             link = "https://discordapp.com/channels/256988924390408193/256994533299060746/521483972241391616"

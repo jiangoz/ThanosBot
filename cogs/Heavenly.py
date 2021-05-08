@@ -9,20 +9,20 @@ class Heavenly(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    #Auto Roles for new member joins
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        if member.guild.id == 256988924390408193:
-            await asyncio.sleep(310)
-            role1 = member.guild.get_role(398253816971264000)  # emote role 1
-            role2 = member.guild.get_role(400871836876931092)  # emote role 2
-            try:
-                if role1 not in member.roles:
-                    await member.add_roles(role1, reason="AutoRole After 5 Mins")
-                if role2 not in member.roles:
-                    await member.add_roles(role2, reason="AutoRole After 5 Mins")
-            except discord.HTTPException:
-                pass
+    # #Auto Roles for new member joins
+    # @commands.Cog.listener()
+    # async def on_member_join(self, member):
+    #     if member.guild.id == 256988924390408193:
+    #         await asyncio.sleep(310)
+    #         role1 = member.guild.get_role(398253816971264000)  # emote role 1
+    #         role2 = member.guild.get_role(400871836876931092)  # emote role 2
+    #         try:
+    #             if role1 not in member.roles:
+    #                 await member.add_roles(role1, reason="AutoRole After 5 Mins")
+    #             if role2 not in member.roles:
+    #                 await member.add_roles(role2, reason="AutoRole After 5 Mins")
+    #         except discord.HTTPException:
+    #             pass
     
     @commands.command(aliases=['addMemeVote'])
     @commands.is_owner()
