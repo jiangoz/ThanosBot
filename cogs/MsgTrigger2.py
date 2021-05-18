@@ -34,8 +34,12 @@ class MsgTrigger2(commands.Cog):
         if msg.channel.id == 459767444437729280 or msg.channel.id == 838570502091833345:
             up = self.bot.get_emoji(592355631667740683)
             down = self.bot.get_emoji(592355631877324820)
-            await msg.add_reaction(up)
-            await msg.add_reaction(down)
+            try:
+                await msg.add_reaction(up)
+                await msg.add_reaction(down)
+            except discord.errors.Forbidden:
+                # cannot react to message
+                pass
 
         # Auto delete non-embedded gifs in weeb channel
         if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
@@ -46,7 +50,7 @@ class MsgTrigger2(commands.Cog):
         
         # Auto add random reaction in epic_boosters channel
         if msg.channel.id == 838530366997266432:
-            react_list = [590614599515111440,601185935714943005,597917965178109952,594177649266524160,
+            react_list = [590614599515111440, 601185935714943005, 597917965178109952, 594177649266524160,
             645117585918132224, 594175419801141273, 645117585704091681, 645117585767006219,
             588780698693795840, 590614599590739968, 645117584743858196, 642785362124472363]
 
