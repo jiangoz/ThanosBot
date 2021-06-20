@@ -41,12 +41,13 @@ class MsgTrigger2(commands.Cog):
                 # cannot react to message
                 pass
 
-        # Auto delete non-embedded gifs in weeb channel
-        if msg.channel.id == 332674779213463553 and "//v.redd.it/" in msgContent:
-            try:
-                await msg.delete()
-            except discord.HTTPException:
-                pass
+        # Weeb channel auto delete: non-embed gif/link, discord link
+        if msg.channel.id == 332674779213463553:
+            if "//v.redd.it/" in msgContent or "discord.gg" in msgContent:
+                try:
+                    await msg.delete()
+                except discord.HTTPException:
+                    pass
         
         # Auto add random reaction in epic_boosters channel
         if msg.channel.id == 838530366997266432:
