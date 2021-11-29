@@ -14,6 +14,31 @@ class Util(commands.Cog):
         await ctx.send(f'Pong! {round(self.bot.latency*1000)}ms')
     
     @commands.command()
+    @commands.is_owner()
+    async def purgeMsg(self, ctx, amount:int):
+        """| purge <amount> most recent msgs in channel"""
+        messages = await ctx.channel.history(limit=amount).flatten()
+        c = 0
+        for m in messages:
+            await m.delete()
+            c += 1
+        await ctx.send(f'Finished deleting {c} messages!')
+    
+    @commands.command()
+    @commands.is_owner()
+    async def purgeTargetMsg(self, ctx, target:str):
+        """| purge all msgs in channel that contain <target> str"""
+        await ctx.send('Fetching all messages in channel...')
+        messages = await ctx.channel.history(limit=None).flatten()
+        await ctx.send('Fetched the messages. Starting the deletion phase...')
+        c = 0
+        for m in messages:
+            if target.lower() in m.content.lower():
+                await m.delete()
+                c += 1
+        await ctx.send(f'Finished deleting {c} messages!')
+    
+    @commands.command()
     async def info(self, ctx):
         """| see information about the bot"""
         infoembed = discord.Embed(color=discord.Color.purple()).set_author(name="Thanos", 
