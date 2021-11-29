@@ -98,6 +98,11 @@ class AutoMod1(commands.Cog):
                 return
             except discord.HTTPException:
                 pass
+            
+        # delete and kick nitro scammers
+        if "nitro" in msgContentLower and demigod1 not in authorRoles:
+            await msg.delete()
+            await msg.author.kick(reason='potential nitro scam msg')
 
         # NOTICE: no more global emotes
         if ("emot" in msgContentLower or "emoj" in msgContentLower) and \
