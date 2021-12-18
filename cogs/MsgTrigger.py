@@ -109,20 +109,6 @@ class MsgTrigger(commands.Cog):
             if "(╯°□°）╯︵ ┻━┻" in msg.content:
                 await msg.channel.send("┬─┬ ノ( ゜-゜ノ)")
 
-            # send invite link (rick roll)
-            link = "https://discordapp.com/channels/256988924390408193/256994533299060746/521483972241391616"
-            if (authorTopRole <= demigod1 or demigodv not in authorRoles) and "inv" in msgContentLower and \
-                ("?" in msgContentLower or
-                 "what" in msgContentLower or
-                 "where" in msgContentLower or
-                 "how" in msgContentLower or
-                 "link" in msgContentLower or
-                 "why" in msgContentLower):
-                await msg.channel.send(f"{msg.author.mention} {link}",
-                                       embed=discord.Embed(title="Click Here for Invite Link",
-                                                           url="https://youtu.be/dQw4w9WgXcQ"))
-                pass
-
         except discord.HTTPException:
             pass
 
