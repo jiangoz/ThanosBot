@@ -98,28 +98,6 @@ class AutoMod1(commands.Cog):
                 return
             except discord.HTTPException:
                 pass
-            
-        # delete and kick nitro scammers
-        if "nitro" in msgContentLower and demigod1 not in authorRoles:
-            await msg.delete()
-            await msg.author.kick(reason='potential nitro scam msg')
-
-        # NOTICE: no more global emotes
-        if ("emot" in msgContentLower or "emoj" in msgContentLower) and \
-            ("how" in msgContentLower or "global" in msgContentLower or "?" in msgContentLower or
-             "where" in msgContentLower or "what" in msgContentLower or "why" in msgContentLower or
-             "which" in msgContentLower):
-
-            if (demigodX not in authorRoles or demigodV >= authorTopRole):
-                # buy nitro meme
-                meme = discord.Embed().set_image(url="https://i.imgur.com/0HOJ9YY.png")
-                notice = (f'{msg.author.mention} Sorry. Discord Inc. removed GW (global) emotes '
-                + 'so more users buy Nitro <:Merchant2:561548871457832970> <:CrazyChamp:702640155432976475>')
-                
-                try:
-                    await msg.channel.send(notice, embed=meme)
-                except discord.HTTPException:
-                    pass
                 
 
 def setup(bot):
