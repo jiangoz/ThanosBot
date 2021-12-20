@@ -32,9 +32,9 @@ class AutoMod1(commands.Cog):
             authorTopRole = msg.author.top_role  # member's highest role
             viprole = msg.guild.get_role(388850225881546752)
             botrole = msg.guild.get_role(272888325940051969)
-            demigodX = msg.guild.get_role(340275236865966090) # demigod X
+            demigodX = msg.guild.get_role(340275236865966090)  # demigod X
             demigodV = msg.guild.get_role(310541971179700224)  # demigod v
-            demigod1 = msg.guild.get_role(257006648583913472) # demigod 1
+            demigod1 = msg.guild.get_role(257006648583913472)  # demigod 1
             authorRoles = msg.author.roles
         except AttributeError:
             return
@@ -53,7 +53,7 @@ class AutoMod1(commands.Cog):
                 detected = detect(text)
             except lang_detect_exception.LangDetectException:
                 detected = ''
-            
+
             if (len(msglist) >= 10 and detected != "en") or \
                 (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI_ENGLISH) and
                  "’" not in text and "‘" not in text):
@@ -61,10 +61,10 @@ class AutoMod1(commands.Cog):
                 try:
                     await msg.delete()
                     emb = discord.Embed(title="Make sure your msg only contains ASCII",
-                                            url="https://en.wikipedia.org/wiki/ASCII",
-                                            description="(Level 10+ are immune to this auto-mod)")
+                                        url="https://en.wikipedia.org/wiki/ASCII",
+                                        description="(Level 10+ are immune to this auto-mod)")
                     outputMsg = (f'{msg.author.mention} Please use English to chat here. '
-                                + 'You may use other langs in <#309478950772670470>')
+                                 + 'You may use other langs in <#309478950772670470>')
                     await msg.channel.send(outputMsg, embed=emb)
                     return
                 except discord.HTTPException:
@@ -84,7 +84,7 @@ class AutoMod1(commands.Cog):
                     channel = self.bot.get_channel(
                         416385919919194113)  # spam channel
                     await channel.send(f'{msg.author.mention} Your msg was deleted in <#459893562130300928> '
-                                    + '(it is only for ***CUSTOM EMOTES***)')
+                                       + '(it is only for ***CUSTOM EMOTES***)')
                     return
                 except discord.HTTPException:
                     pass
@@ -96,7 +96,18 @@ class AutoMod1(commands.Cog):
                 return
             except discord.HTTPException:
                 pass
-                
+
+        # delete and kick nitro scammers
+        if "nitro" in msgContentLower and demigod1 not in authorRoles:
+            await msg.delete()
+            emb = discord.Embed(title="Join back the server",
+                                url="https://discord.gg/XdBgdZt",
+                                description="(Level 1+ are immune to this auto-mod)")
+            warnMsg = (f'{msg.author.mention} You were kicked from **ikigai** because your message '
+                       + 'was marked as potential spam/scam')
+            await msg.author.send(warnMsg, embed=emb)
+            await msg.author.kick(reason='potential nitro scam msg')
+
 
 def setup(bot):
     bot.add_cog(AutoMod1(bot))
