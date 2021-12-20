@@ -43,10 +43,8 @@ class AutoMod1(commands.Cog):
         if botrole in authorRoles:
             return
 
-        # general/media/game chat auto mod, VIP+ are immune
-        if (msg.channel.id == 568437502680104960
-            or msg.channel.id == 289170611849396225
-                or msg.channel.id == 256993917461987328) and authorTopRole < viprole:
+        # main chat auto mod, lvl 10+ are immune
+        if msg.channel.id == 568437502680104960 and demigodX not in authorRoles:
             text: str = msg.content
             msglist = text.split()
 
@@ -64,7 +62,7 @@ class AutoMod1(commands.Cog):
                     await msg.delete()
                     emb = discord.Embed(title="Make sure your msg only contains ASCII",
                                             url="https://en.wikipedia.org/wiki/ASCII",
-                                            description="(VIP+ are immune to this auto-mod)")
+                                            description="(Level 10+ are immune to this auto-mod)")
                     outputMsg = (f'{msg.author.mention} Please use English to chat here. '
                                 + 'You may use other langs in <#309478950772670470>')
                     await msg.channel.send(outputMsg, embed=emb)
