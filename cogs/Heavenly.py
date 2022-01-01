@@ -3,12 +3,14 @@ import asyncio
 from discord.ext import commands
 import emoji
 
-#Designed only for Heavenly Realm
+# Designed only for main server
+
+
 class Heavenly(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    
+
     # #Auto Roles for new member joins
     # @commands.Cog.listener()
     # async def on_member_join(self, member):
@@ -23,7 +25,7 @@ class Heavenly(commands.Cog):
     #                 await member.add_roles(role2, reason="AutoRole After 5 Mins")
     #         except discord.HTTPException:
     #             pass
-    
+
     @commands.command(aliases=['addMemeVote'])
     @commands.is_owner()
     async def addMemeVotes(self, ctx, limit=30):
@@ -42,12 +44,12 @@ class Heavenly(commands.Cog):
                 await msg.add_reaction(down)
                 downcount += 1
         await ctx.send(f'Added {upcount} upvote reacts and {downcount} downvote reacts')
-    
-    @commands.command(aliases=['addSuggestVote','addSuggestionVote','addSuggestionVotes'])
+
+    @commands.command(aliases=['addSuggestVote', 'addSuggestionVote', 'addSuggestionVotes'])
     @commands.is_owner()
     async def addSuggestVotes(self, ctx, limit=10):
         """| add vote reactions to the last <num> msgs in suggestions channel"""
-        suggestChannel = self.bot.get_channel(838570502091833345) 
+        suggestChannel = self.bot.get_channel(838570502091833345)
         messages = await suggestChannel.history(limit=limit).flatten()
         up = self.bot.get_emoji(592355631667740683)
         down = self.bot.get_emoji(592355631877324820)
@@ -77,8 +79,8 @@ class Heavenly(commands.Cog):
                 except discord.HTTPException:
                     pass
         await ctx.send(f'Deleted {delCount} non-embedded gif links')
-    
-    @commands.command(aliases=['cleanEmote','cleanEmotes'])
+
+    @commands.command(aliases=['cleanEmote', 'cleanEmotes'])
     @commands.is_owner()
     async def cleanEmoteChat(self, ctx, limit=100):
         """| go thru <num> msgs in emote channel & delete non-emotes"""
@@ -99,8 +101,7 @@ class Heavenly(commands.Cog):
                 except discord.HTTPException:
                     pass
         await ctx.send(f'Deleted {delCount} non-emote messages')
-    
+
+
 def setup(bot):
     bot.add_cog(Heavenly(bot))
-
-

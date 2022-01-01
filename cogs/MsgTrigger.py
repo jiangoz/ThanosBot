@@ -6,7 +6,7 @@ import random
 import json
 
 # NO COMMANDS HERE, only 1 listener for on_message()
-# Designed only for Heavenly Realm
+# Designed only for main server
 
 
 class MsgTrigger(commands.Cog):
@@ -37,7 +37,7 @@ class MsgTrigger(commands.Cog):
         if msg.guild == None:
             return
 
-        # if not Heavenly, then return
+        # if not main server, then return
         if msg.guild.id != 256988924390408193:
             return
 

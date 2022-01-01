@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 
+
 class Misc(commands.Cog):
 
     def __init__(self, bot):
@@ -42,7 +43,7 @@ class Misc(commands.Cog):
         await ctx.message.add_reaction(self.bot.get_emoji(585580175031533597))
 
     @set.command()
-    async def stream(self,ctx, streamURL:str, *,streamName:str):
+    async def stream(self, ctx, streamURL: str, *, streamName: str):
         """| set bot to stream something"""
         if "https://" in streamURL:
             await self.bot.change_presence(activity=discord.Streaming(name=streamName, url=streamURL))
@@ -66,6 +67,7 @@ class Misc(commands.Cog):
 
     # @set.command() # SADLY bots can't use custom activity!!!
     # async def customActivity(self,ctx,emoji=None,*,activityName:str):
+
 
 def setup(bot):
     bot.add_cog(Misc(bot))

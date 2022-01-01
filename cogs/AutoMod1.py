@@ -105,7 +105,7 @@ class AutoMod1(commands.Cog):
                                     url="https://discord.gg/XdBgdZt",
                                     description="(Level 1+ are immune to this auto-mod)")
                 warnMsg = (f'{msg.author.mention} You were kicked because your message contained \'nitro\''
-                        + '; marked as potential spam/scam')
+                           + '; marked as potential spam/scam')
                 await msg.author.send(warnMsg, embed=emb)
                 await msg.author.kick(reason='potential nitro scam msg')
             except discord.HTTPException:

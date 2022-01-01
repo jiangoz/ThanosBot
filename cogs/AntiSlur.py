@@ -4,7 +4,7 @@ from discord.ext import commands
 from pathlib import Path
 
 # NO COMMANDS HERE, only 1 listener for on_message()
-# Designed only for Heavenly Realm
+# Designed only for main server
 
 
 class AntiSlur(commands.Cog):
@@ -20,7 +20,7 @@ class AntiSlur(commands.Cog):
 
         with open(fPath) as f:
             self.slursList = f.readlines()
-        
+
         with open(wPath) as w:
             self.wildcardList = w.readlines()
 
@@ -33,7 +33,7 @@ class AntiSlur(commands.Cog):
         if msg.guild == None:
             return
 
-        # if not Heavenly, then return
+        # if not main server, then return
         if msg.guild.id != 256988924390408193:
             return
 
@@ -50,7 +50,7 @@ class AntiSlur(commands.Cog):
         # Racial slur filter
         # standalone word match (not wildcard match)
         for s in self.slursList:
-    
+
             if s in trigger:
                 muted = msg.guild.get_role(316401466875314178)
                 modrole = msg.guild.get_role(388736972845482004)
@@ -73,7 +73,7 @@ class AntiSlur(commands.Cog):
                         return
                 except discord.HTTPException:
                     pass
-        
+
         # wildcard match
         for w in self.wildcardList:
             if w in msgContentLower:

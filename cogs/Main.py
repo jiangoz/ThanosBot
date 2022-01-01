@@ -21,7 +21,7 @@ class Main(commands.Cog):
             await ctx.send(f'setup function for {cog} had an execution error')
         except commands.ExtensionNotFound:
             await ctx.send(f'{cog} was not found in cogs directory')
-        
+
     @commands.command()
     @commands.is_owner()
     async def unload(self, ctx, cog):
@@ -31,7 +31,7 @@ class Main(commands.Cog):
             await ctx.send(f'{cog} was un-loaded successfully')
         except commands.ExtensionNotLoaded:
             await ctx.send(f'{cog} failed to unload. Try using reload')
-        
+
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, cog):
@@ -45,7 +45,6 @@ class Main(commands.Cog):
             await ctx.send(f'{cog} was not found in cogs directory')
         except commands.ExtensionFailed:
             await ctx.send(f'setup function for {cog} had an execution error')
-        
 
     @commands.command()
     @commands.is_owner()

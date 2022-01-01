@@ -5,6 +5,7 @@ import sqlite3
 
 # Multiple Listeners for Updating the Database
 
+
 class DBTrigger(commands.Cog):
 
     def __init__(self, bot):
@@ -22,18 +23,20 @@ class DBTrigger(commands.Cog):
             conn = sqlite3.connect("data/heavenlyDB.db")
             c = conn.cursor()
             c.execute("INSERT INTO messages VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (msg.id, msg.author.id, msg.content, msg.clean_content, msg.channel.id, msg.created_at, msg.jump_url))
-                
+                      (msg.id, msg.author.id, msg.content, msg.clean_content, msg.channel.id,
+                       msg.created_at, msg.jump_url))
+
             conn.commit()
             conn.close()
-        
+
         # Hellish
         elif msg.guild.id == 436263090472878081:
             conn = sqlite3.connect("data/hellishDB.db")
             c = conn.cursor()
             c.execute("INSERT INTO messages VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (msg.id, msg.author.id, msg.content, msg.clean_content, msg.channel.id, msg.created_at, msg.jump_url))
-                
+                      (msg.id, msg.author.id, msg.content, msg.clean_content, msg.channel.id,
+                       msg.created_at, msg.jump_url))
+
             conn.commit()
             conn.close()
 
