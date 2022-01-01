@@ -24,7 +24,7 @@ class MsgTrigger2(commands.Cog):
                 await msg.add_reaction(react)
                 channel = self.bot.get_channel(
                     550456326053036034)  # msg log channel
-                await channel.send(f'{msg.author.mention} said in DM: {msg.content}')
+                await channel.send(f'{msg.author.mention} said in DM: `{msg.content}`')
             except discord.HTTPException:
                 pass
             return
