@@ -7,7 +7,7 @@ from langdetect import lang_detect_exception
 import emoji
 
 # NO COMMANDS HERE, only 1 listener for on_message()
-# Designed only for Heavenly Realm
+# Designed only for main server
 
 
 class AutoMod1(commands.Cog):
@@ -24,7 +24,7 @@ class AutoMod1(commands.Cog):
         if msg.guild == None:
             return
 
-        # if not Heavenly, then return
+        # if not main server, then return
         if msg.guild.id != 256988924390408193:
             return
 
@@ -99,14 +99,17 @@ class AutoMod1(commands.Cog):
 
         # delete and kick nitro scammers
         if "nitro" in msgContentLower and demigod1 not in authorRoles:
-            await msg.delete()
-            emb = discord.Embed(title="Join back the server",
-                                url="https://discord.gg/XdBgdZt",
-                                description="(Level 1+ are immune to this auto-mod)")
-            warnMsg = (f'{msg.author.mention} You were kicked from **ikigai** because your message '
-                       + 'was marked as potential spam/scam')
-            await msg.author.send(warnMsg, embed=emb)
-            await msg.author.kick(reason='potential nitro scam msg')
+            try:
+                await msg.delete()
+                emb = discord.Embed(title="Join back the server",
+                                    url="https://discord.gg/XdBgdZt",
+                                    description="(Level 1+ are immune to this auto-mod)")
+                warnMsg = (f'{msg.author.mention} You were kicked because your message contained \'nitro\''
+                        + '; marked as potential spam/scam')
+                await msg.author.send(warnMsg, embed=emb)
+                await msg.author.kick(reason='potential nitro scam msg')
+            except discord.HTTPException:
+                pass
 
 
 def setup(bot):
