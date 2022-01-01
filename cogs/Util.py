@@ -1,6 +1,9 @@
 import discord
 import asyncio
+import os
 from discord.ext import commands
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class Util(commands.Cog):
@@ -12,10 +15,10 @@ class Util(commands.Cog):
     async def ping(self, ctx):
         """| pong! returns latency"""
         await ctx.send(f'Pong! {round(self.bot.latency*1000)}ms')
-    
+
     @commands.command()
     @commands.is_owner()
-    async def purgeMsg(self, ctx, amount:int):
+    async def purgeMsg(self, ctx, amount: int):
         """| purge <amount> most recent msgs in channel"""
         messages = await ctx.channel.history(limit=amount).flatten()
         c = 0
@@ -23,10 +26,10 @@ class Util(commands.Cog):
             await m.delete()
             c += 1
         await ctx.send(f'Finished deleting {c} messages!')
-    
+
     @commands.command()
     @commands.is_owner()
-    async def purgeTargetMsg(self, ctx, target:str):
+    async def purgeTargetMsg(self, ctx, target: str):
         """| purge all msgs in channel that contain <target> str"""
         await ctx.send('Fetching all messages in channel...')
         messages = await ctx.channel.history(limit=None).flatten()
@@ -37,25 +40,29 @@ class Util(commands.Cog):
                 await m.delete()
                 c += 1
         await ctx.send(f'Finished deleting {c} messages!')
-    
+
     @commands.command()
     async def info(self, ctx):
         """| see information about the bot"""
-        infoembed = discord.Embed(color=discord.Color.purple()).set_author(name="Thanos", 
-        icon_url="https://i.imgur.com/LPX0BfY.png")
-        infoembed = infoembed.add_field(name="API", value="d.py").add_field(name="Language", value="Python3"
-        ).add_field(name="Creator", value="jiango#0215").add_field(name="Version", value="420.69").add_field(
-            name="GitHub", value="[ThanosBot](https://github.com/jiangoz/ThanosBot)").add_field(name="Users", 
-            value=str(len(self.bot.users)))
+        infoembed = discord.Embed(color=discord.Color.purple()
+                                  ).set_author(name="Thanos", icon_url="https://i.imgur.com/LPX0BfY.png")
+        
+        GITHUB = os.getenv('GITHUB')
+        appInfo = await self.bot.application_info()
+        CREATOR = f'{appInfo.owner.name}#{appInfo.owner.discriminator}'
 
-        infoembed = infoembed.add_field(name="Heavenly", value="[discord.gg/LMAO](https://discord.gg/XdBgdZt)"
-        ).add_field(name="Hellish", value="[discord.gg/MbnDzAR](https://discord.gg/MbnDzAR)")
+        infoembed = infoembed.add_field(name="API", value="d.py"
+                            ).add_field(name="Language", value="Python3"
+                            ).add_field(name="Creator", value=CREATOR
+                            ).add_field(name="Version", value=os.getenv('VERSION')
+                            ).add_field(name="GitHub", value=f'[ThanosBot]({GITHUB})'
+                            ).add_field(name="Users", value=str(len(self.bot.users)))
 
         await ctx.send(embed=infoembed)
 
     @commands.command(aliases=['noAttention', 'removeNicks'])
     @commands.has_guild_permissions(manage_guild=True)
-    async def removeNick(self, ctx, usercount:int=10, symbol:str='!', *, newNick:str=None):
+    async def removeNick(self, ctx, usercount: int = 10, symbol: str = '!', *, newNick: str = None):
         """| remove/change nicknames that start with \"symbol\""""
         if ctx.guild == None:
             await ctx.send(f'Hey! You need to type that command in a server!')
