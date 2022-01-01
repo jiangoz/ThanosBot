@@ -1,10 +1,12 @@
 *.pyc 
 .vscode/
 bot-env/
+__pycache__/
 
 TODO
 rolelist.json
 *.db
+.env
 
 settings.txt
 slursFilter.txt
