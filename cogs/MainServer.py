@@ -38,13 +38,46 @@ class MainServer(commands.Cog):
             delta = datetime.now() - member.created_at
             # new acc created less than 7 days ago
             if delta.days < 7 and demigod1 not in member.roles:
-                emb = discord.Embed(title="Join back the server",
-                                    url="https://discord.gg/XdBgdZt",
-                                    description="(Level 1+ are immune to this auto-mod)")
-                warnMsg = (f'{member.mention} You were kicked because your account is new and '
-                           + 'you have no profile picture; marked as potential bot/raid')
-                await member.send(warnMsg, embed=emb)
-                await member.kick(reason='potential new acc bot/raid')
+                try:
+                    emb = discord.Embed(title="Join back the server",
+                                        url="https://discord.gg/XdBgdZt",
+                                        description="(Level 1+ are immune to this auto-mod)")
+                    warnMsg = (f'{member.mention} You were kicked because your account is new and '
+                               + 'you have no profile picture; marked as potential bot/raid')
+                    await member.send(warnMsg, embed=emb)
+                    await member.kick(reason='potential new acc bot/raid')
+                except discord.HTTPException:
+                    pass
+
+    @commands.command(aliases=['kickPotentialBot'])
+    @commands.is_owner()
+    async def kickPotentialBots(self, ctx, limit=100):
+        """| kicks new accs without pfp (potential bots)"""
+        await ctx.send(f'Attempting to kick {limit} potential bots...')
+        kickCount = 0
+        for member in ctx.guild.members:
+            if (kickCount < limit
+                    and member.avatar_url == member.default_avatar_url):
+
+                try:
+                    demigod1 = member.guild.get_role(
+                        257006648583913472)  # demigod 1
+
+                    delta = datetime.now() - member.created_at
+                    # new acc created less than 7 days ago
+                    if delta.days < 7 and demigod1 not in member.roles:
+                        emb = discord.Embed(title="Join back the server",
+                                            url="https://discord.gg/XdBgdZt",
+                                            description="(Level 1+ are immune to this auto-mod)")
+                        warnMsg = (f'{member.mention} You were kicked because your account is new and '
+                                   + 'you have no profile picture; marked as potential bot/raid')
+                        await member.send(warnMsg, embed=emb)
+                        await member.kick(reason='potential new acc bot/raid')
+                        kickCount += 1
+                except discord.HTTPException:
+                    pass
+
+        await ctx.send(f'Finished. Kicked {kickCount} potential bots')
 
     @commands.command(aliases=['addMemeVote'])
     @commands.is_owner()
