@@ -1,12 +1,13 @@
+from datetime import datetime, timezone
+
 import discord
-import asyncio
-from discord.ext import commands
 import emoji
+from discord.ext import commands
 
 # Designed only for main server
 
 
-class Heavenly(commands.Cog):
+class MainServer(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -25,6 +26,25 @@ class Heavenly(commands.Cog):
     #                 await member.add_roles(role2, reason="AutoRole After 5 Mins")
     #         except discord.HTTPException:
     #             pass
+
+    # Auto kicks new accs without pfp (prevent bot raids)
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        if (member.guild.id == 256988924390408193
+                and member.avatar_url == member.default_avatar_url):
+
+            demigod1 = member.guild.get_role(257006648583913472)  # demigod 1
+
+            delta = datetime.now() - member.created_at
+            # new acc created less than 7 days ago
+            if delta.days < 7 and demigod1 not in member.roles:
+                emb = discord.Embed(title="Join back the server",
+                                    url="https://discord.gg/XdBgdZt",
+                                    description="(Level 1+ are immune to this auto-mod)")
+                warnMsg = (f'{member.mention} You were kicked because your account is new and '
+                           + 'you have no profile picture; marked as potential bot/raid')
+                await member.send(warnMsg, embed=emb)
+                await member.kick(reason='potential new acc bot/raid')
 
     @commands.command(aliases=['addMemeVote'])
     @commands.is_owner()
@@ -104,4 +124,4 @@ class Heavenly(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Heavenly(bot))
+    bot.add_cog(MainServer(bot))
