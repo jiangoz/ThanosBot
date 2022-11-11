@@ -1,6 +1,7 @@
 *.pyc 
 .vscode/
 bot-env/
+bot_env/
 __pycache__/
 
 TODO
