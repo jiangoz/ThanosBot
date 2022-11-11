@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import os
+from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,6 +16,12 @@ class Util(commands.Cog):
     async def ping(self, ctx):
         """| pong! returns latency"""
         await ctx.send(f'Pong! {round(self.bot.latency*1000)}ms')
+
+    @app_commands.command(name="ping")
+    async def ping_command(self, interaction: discord.Interaction) -> None:
+        """Is Thanos still alive? Find out!"""
+        await interaction.response.send_message(f'Pong! {round(self.bot.latency*1000)}ms',
+                                                ephemeral=True)
 
     @commands.command()
     @commands.is_owner()
@@ -46,7 +53,7 @@ class Util(commands.Cog):
         """| see information about the bot"""
         infoembed = discord.Embed(color=discord.Color.purple()
                                   ).set_author(name="Thanos", icon_url="https://i.imgur.com/LPX0BfY.png")
-        
+
         GITHUB = os.getenv('GITHUB')
         appInfo = await self.bot.application_info()
         CREATOR = f'{appInfo.owner.name}#{appInfo.owner.discriminator}'
@@ -94,5 +101,5 @@ class Util(commands.Cog):
                     f'{badnamecount} bad nicknames found. {changecount} members changed to `{newNick}`')
 
 
-def setup(bot):
-    bot.add_cog(Util(bot))
+async def setup(bot):
+    await bot.add_cog(Util(bot))
