@@ -67,5 +67,5 @@ class DBTrigger(commands.Cog):
     # async def updateDB(self,ctx):
 
 
-def setup(bot):
-    bot.add_cog(DBTrigger(bot))
+async def setup(bot):
+    await bot.add_cog(DBTrigger(bot))

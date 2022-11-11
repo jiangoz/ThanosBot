@@ -62,5 +62,5 @@ class MsgTrigger2(commands.Cog):
             await msg.add_reaction(rand_react)
 
 
-def setup(bot):
-    bot.add_cog(MsgTrigger2(bot))
+async def setup(bot):
+    await bot.add_cog(MsgTrigger2(bot))

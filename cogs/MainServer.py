@@ -156,5 +156,5 @@ class MainServer(commands.Cog):
         await ctx.send(f'Deleted {delCount} non-emote messages')
 
 
-def setup(bot):
-    bot.add_cog(MainServer(bot))
+async def setup(bot):
+    await bot.add_cog(MainServer(bot))

@@ -69,5 +69,5 @@ class Misc(commands.Cog):
     # async def customActivity(self,ctx,emoji=None,*,activityName:str):
 
 
-def setup(bot):
-    bot.add_cog(Misc(bot))
+async def setup(bot):
+    await bot.add_cog(Misc(bot))
