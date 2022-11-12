@@ -1,15 +1,6 @@
 *.pyc 
+__pycache__/
 .vscode/
 bot-env/
 bot_env/
-__pycache__/
-
-TODO
-rolelist.json
-*.db
 .env
-
-settings.txt
-slursFilter.txt
-wildcardFilter.txt
-
