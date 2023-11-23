@@ -2,8 +2,6 @@ import discord
 import asyncio
 from discord.ext import commands
 import random
-from langdetect import detect
-from langdetect import lang_detect_exception
 import emoji
 
 # NO COMMANDS HERE, only 1 listener for on_message()
@@ -42,33 +40,6 @@ class AutoMod1(commands.Cog):
         # if msg from bots
         if botrole in authorRoles:
             return
-
-        # main chat auto mod, lvl 10+ are immune
-        if msg.channel.id == 568437502680104960 and demigodX not in authorRoles:
-            text: str = msg.content
-            msglist = text.split()
-
-            # Detect non-english
-            try:
-                detected = detect(text)
-            except lang_detect_exception.LangDetectException:
-                detected = ''
-
-            if (len(msglist) >= 10 and detected != "en") or \
-                (not text.isascii() and not any(em in text for em in emoji.UNICODE_EMOJI_ENGLISH) and
-                 "’" not in text and "‘" not in text):
-                # not ascii && no unicode emoji in text
-                try:
-                    await msg.delete()
-                    emb = discord.Embed(title="Make sure your msg only contains ASCII",
-                                        url="https://en.wikipedia.org/wiki/ASCII",
-                                        description="(Level 10+ are immune to this auto-mod)")
-                    outputMsg = (f'{msg.author.mention} Please use English to chat here. '
-                                 + 'You may use other langs in <#309478950772670470>')
-                    await msg.channel.send(outputMsg, embed=emb)
-                    return
-                except discord.HTTPException:
-                    pass
 
         # Auto moderate emote chat  #Only custom/global emotes allowed
         if msg.channel.id == 459893562130300928:

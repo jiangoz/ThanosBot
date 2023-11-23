@@ -12,7 +12,6 @@ WIP, always adding new features to assist me in server moderation & management.
 
 ### Python Packages Used:
 - **jishaku:** https://github.com/Gorialis/jishaku 
-- **langdetect:** https://github.com/Mimino666/langdetect 
 - **emoji:** https://github.com/carpedm20/emoji
 - **apscheduler:** https://github.com/agronholm/apscheduler
 
