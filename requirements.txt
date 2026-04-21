@@ -22,7 +22,7 @@ langdetect==1.0.9
 line-profiler==4.1.2
 multidict==6.0.4
 pycodestyle==2.8.0
-python-dotenv==0.19.2
+python-dotenv==1.2.2
 pytz==2021.1
 six==1.15.0
 toml==0.10.2
