@@ -14,7 +14,7 @@ discord.py==2.0.1
 emoji==2.2.0
 frozenlist==1.4.0
 humanize==3.3.0
-idna==3.7
+idna==3.15
 import-expression==1.1.4
 importlib-metadata==5.0.0
 jishaku==2.5.1
